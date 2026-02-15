@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public abstract class Interacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idInteracao;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "id_perfil", nullable = false)
@@ -22,38 +22,27 @@ public abstract class Interacao {
     @Column(nullable = false)
     private LocalDateTime dataHora;
 
-    public Interacao() {
 
-    }
+
+
+
+
 
     public Long getId() {
-        return idInteracao;
+        return id;
     }
-
     public void setId(Long id) {
-        this.idInteracao = idInteracao;
+        this.id = id;
     }
-
-    public Perfil getPerfil() {
-        return perfil;
-    }
-
+    public Perfil getPerfil() {return perfil;}
     public void setPerfil(Perfil perfil) {
         this.perfil = perfil;
     }
-
-    public Publicacao getPublicacao() {
-        return publicacao;
-    }
-
+    public Publicacao getPublicacao() {return publicacao;}
     public void setPublicacao(Publicacao publicacao) {
         this.publicacao = publicacao;
     }
-
-    public LocalDateTime getDataHora() {
-        return dataHora;
-    }
-
+    public LocalDateTime getDataHora() {return dataHora;}
     public void setDataHora(LocalDateTime dataHora) {
         this.dataHora = dataHora;
     }

@@ -12,8 +12,7 @@ import br.com.redesocial.enums.TipoPerfil;
 public class Perfil {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_perfil")
-    private Long IdPerfil;
+    private Long id;
 
     @Column(nullable = false)
     private String nome;
@@ -27,45 +26,37 @@ public class Perfil {
     @Column( name = "tipo_privacidade", nullable = false)
     private Integer tipoPrivacidade = 1;
 
+
+
+
+
     public Long getId() {
-        return IdPerfil;
+        return id;
     }
-
-    public Perfil() {
-    }
-
     public void setId(Long id) {
-        this.IdPerfil = IdPerfil;
+        this.id = id;
     }
-
     public String getNome() {
         return nome;
     }
-
     public void setNome(String nome) {
         this.nome = nome;
     }
-
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
-
     public String getSenha() {
         return senha;
     }
-
     public void setSenha(String senha) {
         this.senha = senha;
     }
-
     public Integer getTipoPrivacidade() {
         return tipoPrivacidade;
     }
-
     public void setTipoPrivacidade(Integer tipoPrivacidade) {
         this.tipoPrivacidade = tipoPrivacidade;
     }

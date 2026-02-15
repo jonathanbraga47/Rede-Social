@@ -10,34 +10,34 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/Publicacao")
+@RequestMapping("/publicacao")
 public class PublicacaoController {
     @Autowired
     private PublicacaoService publicacaoService;
 
-    @PostMapping("/Create")
-    public ResponseEntity<Publicacao> criarPublicacao(@RequestBody PublicacaoDTO publicacaoDTO){
-        return ResponseEntity.ok(publicacaoService.criarPublicacao(publicacaoDTO));
+    @PostMapping("/create")
+    public ResponseEntity<Publicacao> createPublicacao(@RequestBody PublicacaoDTO publicacaoDTO){
+        return ResponseEntity.ok(publicacaoService.createPublicacao(publicacaoDTO));
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<Publicacao>> listarPublicacoes() {
-        return ResponseEntity.ok(publicacaoService.listarPublicacao());
+    public ResponseEntity<List<Publicacao>> getAllPublicacoes() {
+        return ResponseEntity.ok(publicacaoService.getAllPublicacao());
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<Publicacao> buscarPublicacao(@PathVariable Long id) {
-        return ResponseEntity.ok(publicacaoService.buscarPublicacao(id));
+    public ResponseEntity<Publicacao> getPublicacao(@PathVariable Long id) {
+        return ResponseEntity.ok(publicacaoService.getPublicacao(id));
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Publicacao> atualizarPublicacao(@PathVariable Long id, @RequestBody PublicacaoDTO publicacaoDTO) {
-        return ResponseEntity.ok(publicacaoService.atualizarPublicacao(id, publicacaoDTO));
+    public ResponseEntity<Publicacao> updatePublicacao(@PathVariable Long id, @RequestBody PublicacaoDTO publicacaoDTO) {
+        return ResponseEntity.ok(publicacaoService.updatePublicacao(id, publicacaoDTO));
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Publicacao> deletarPublicacao(@PathVariable Long id) {
-        publicacaoService.deletarPublicacao(id);
+    public ResponseEntity<Void> deletePublicacao(@PathVariable Long id) {
+        publicacaoService.deletePublicacao(id);
         return ResponseEntity.noContent().build();
     }
 

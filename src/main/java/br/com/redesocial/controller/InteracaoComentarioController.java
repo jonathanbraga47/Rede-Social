@@ -13,27 +13,30 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/comentarios")
+@RequestMapping("/comentario")
 public class InteracaoComentarioController {
 
     @Autowired
     private InteracaoComentarioService interacaoComentarioService;
 
     @PostMapping("/create")
-    public ResponseEntity<InteracaoComentario> criarInteracaoComentario(@Valid @RequestBody InteracaoComentarioDTO interacaoComentarioDTO){
-        InteracaoComentario savedComentario = interacaoComentarioService.criarInteracaoComentario(interacaoComentarioDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedComentario);
+    public ResponseEntity<InteracaoComentario> createInteracaoComentario(@Valid @RequestBody InteracaoComentarioDTO interacaoComentarioDTO){
+        return ResponseEntity.ok(interacaoComentarioService.createInteracaoComentario(interacaoComentarioDTO));
     }
 
     @GetMapping("/getAll")
-    public List<InteracaoComentario> listarInteracaoComentario(){
-        return interacaoComentarioService.listarInteracocomentario();
+    public List<InteracaoComentario> getAllInteracaoComentario(){
+        return interacaoComentarioService.getAllInteracocomentario();
     }
 
-    @DeleteMapping("/get/{id}")
-    public void deletarInteracaoComentario(@PathVariable Long id) {
-        interacaoComentarioService.deletarInteracocomentario(id);
+    @GetMapping("/get/{id}")
+    public ResponseEntity<InteracaoComentario> getInteracaoComentario(@PathVariable Long id) {
+        return ResponseEntity.ok(interacaoComentarioService.getInteracaoComentario(id));
     }
 
-
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteInteracaoComentario(@PathVariable Long id){
+        interacaoComentarioService.deleteInteracaoComentario(id);
+        return ResponseEntity.noContent().build();
+    }
 }

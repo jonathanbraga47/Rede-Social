@@ -5,6 +5,7 @@ import br.com.redesocial.model.*;
 import br.com.redesocial.repository.*;
 import br.com.redesocial.service.InteracaoComentarioService;
 import br.com.redesocial.service.PerfilService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.com.redesocial.repository.PublicacaoRepository;
 
@@ -14,39 +15,40 @@ import java.util.List;
 @Service
 public class InteracaoComentarioService {
 
-    private final InteracaoComentarioRepository interacaoComentarioRepository;
-    private final PerfilService perfilService;
-    private final PerfilRepository perfilRepository;
-    private final PublicacaoRepository publicacaoRepository;
+    @Autowired
+    private InteracaoComentarioRepository interacaoComentarioRepository;
+    @Autowired
+    private PerfilRepository perfilRepository;
+    @Autowired
+    private PublicacaoRepository publicacaoRepository;
 
-    public InteracaoComentarioService(InteracaoComentarioRepository interacaoComentarioRepository, PerfilService perfilService, PerfilRepository perfilRepository, PublicacaoRepository publicacaoRepository) {
-        this.interacaoComentarioRepository = interacaoComentarioRepository;
-        this.perfilService = perfilService;
-        this.perfilRepository = perfilRepository;
-        this.publicacaoRepository = publicacaoRepository;
-    }
 
-    public InteracaoComentario criarInteracaoComentario(InteracaoComentarioDTO interacaoComentarioDTO){
-        Perfil perfil = perfilRepository.findById(interacaoComentarioDTO.getUsuarioId())
-                .orElseThrow(()-> new RuntimeException("Perfil não encontrado"));
+    public InteracaoComentario createInteracaoComentario(InteracaoComentarioDTO dto) {
+        Perfil perfil = perfilRepository.findById(dto.getUsuarioId())
+                .orElseThrow(() -> new RuntimeException("Perfil não encontrado"));
 
-        Publicacao publicacao = publicacaoRepository.findById(interacaoComentarioDTO.getPublicacaoId())
-                .orElseThrow(()-> new RuntimeException("Publicação não encontrada"));
+        Publicacao publicacao = publicacaoRepository.findById(dto.getPublicacaoId())
+                .orElseThrow(() -> new RuntimeException("Publicação não encontrada"));
 
         InteracaoComentario comentario = new InteracaoComentario();
-        comentario.setPerfil(perfil);
-        comentario.setPublicacao(publicacao);
+        comentario.setPerfil(perfil);       // Herdado de Interacao
+        comentario.setPublicacao(publicacao); // Herdado de Interacao
         comentario.setDataHora(LocalDateTime.now());
-        comentario.setTexto(interacaoComentarioDTO.getConteudo());
+        comentario.setTexto(dto.getConteudo()); // Específico de InteracaoComentario
 
         return interacaoComentarioRepository.save(comentario);
     }
 
-    public List<InteracaoComentario> listarInteracocomentario(){
+    public List<InteracaoComentario> getAllInteracocomentario(){
         return interacaoComentarioRepository.findAll();
     }
 
-    public void deletarInteracocomentario(Long id){
+    public InteracaoComentario getInteracaoComentario(Long id){
+        return interacaoComentarioRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Comentário não encontrado"));
+    }
+
+    public void deleteInteracaoComentario(Long id){
         interacaoComentarioRepository.deleteById(id);
     }
 }

@@ -8,51 +8,44 @@ import java.time.LocalDateTime;
 public class Publicacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_publicacao")
     private Long id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_perfil", nullable = false)
     private Perfil perfil;
 
-    @Column(name = "data_hora", nullable = false)
+    @Column(nullable = false)
     private LocalDateTime dataHora;
 
-    @Column(name = "legenda")
+    @Column(nullable = false)
     private String legenda;
 
-    public Publicacao() {
 
-    }
+
+
+
+
 
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-
     public Perfil getPerfil() {
         return perfil;
     }
-
     public void setPerfil(Perfil perfil) {
         this.perfil = perfil;
     }
-
     public LocalDateTime getDataHora() {
         return dataHora;
     }
-
     public void setDataHora(LocalDateTime dataHora) {
         this.dataHora = dataHora;
     }
-
     public String getLegenda() {
         return legenda;
     }
-
     public void setLegenda(String legenda) {
         this.legenda = legenda;
     }

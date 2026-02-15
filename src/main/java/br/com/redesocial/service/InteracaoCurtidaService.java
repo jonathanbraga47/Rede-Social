@@ -8,6 +8,7 @@ import br.com.redesocial.model.Publicacao;
 import br.com.redesocial.repository.InteracaoCurtidaRepository;
 import br.com.redesocial.repository.PerfilRepository;
 import br.com.redesocial.repository.PublicacaoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,22 +16,20 @@ import java.util.List;
 
 @Service
 public class InteracaoCurtidaService {
-    private final InteracaoCurtidaRepository interacaoCurtidaRepository;
-    private final PerfilRepository perfilRepository;
-    private final PublicacaoRepository publicacaoRepository;
 
-    public InteracaoCurtidaService(InteracaoCurtidaRepository interacaoCurtidaRepository, PerfilRepository perfilRepository, PublicacaoRepository publicacaoRepository) {
-        this.interacaoCurtidaRepository = interacaoCurtidaRepository;
-        this.perfilRepository = perfilRepository;
-        this.publicacaoRepository = publicacaoRepository;
-    }
+    @Autowired
+    private InteracaoCurtidaRepository interacaoCurtidaRepository;
+    @Autowired
+    private PerfilRepository perfilRepository;
+    @Autowired
+    private PublicacaoRepository publicacaoRepository;
 
-    public InteracaoCurtida criarInteracaoCurtida(InteracaoCurtidaDTO interacaoCurtidaDTO) {
-        Perfil perfil = perfilRepository.findById(interacaoCurtidaDTO.getUsuarioId())
-                .orElseThrow(()-> new RuntimeException("Perfil não encontrado"));
+    public InteracaoCurtida createInteracaoCurtida(InteracaoCurtidaDTO dto) {
+        Perfil perfil = perfilRepository.findById(dto.getUsuarioId())
+                .orElseThrow(() -> new RuntimeException("Perfil não encontrado"));
 
-        Publicacao publicacao = publicacaoRepository.findById(interacaoCurtidaDTO.getPublicacaoId())
-                .orElseThrow(()-> new RuntimeException("Publicação não encontrada"));
+        Publicacao publicacao = publicacaoRepository.findById(dto.getPublicacaoId())
+                .orElseThrow(() -> new RuntimeException("Publicação não encontrada"));
 
         InteracaoCurtida curtida = new InteracaoCurtida();
         curtida.setPerfil(perfil);
@@ -40,11 +39,16 @@ public class InteracaoCurtidaService {
         return interacaoCurtidaRepository.save(curtida);
     }
 
-    public List<InteracaoCurtida> listarInteracaoCurtida() {
+    public List<InteracaoCurtida> getAllInteracaoCurtida() {
         return interacaoCurtidaRepository.findAll();
     }
 
-    public void deletarInteracaoCurtida(Long id){
+    public InteracaoCurtida getInteracaoCurtida(Long id){
+        return interacaoCurtidaRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Curtida não encontrado"));
+    }
+
+    public void deleteInteracaoCurtida(Long id){
         interacaoCurtidaRepository.deleteById(id);
     }
 

@@ -5,9 +5,7 @@ import br.com.redesocial.model.Perfil;
 import br.com.redesocial.repository.PerfilRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-
 
 @Service
 public class PerfilService {
@@ -29,17 +27,17 @@ public class PerfilService {
         return perfilRepository.save(perfil);
     }
 
-    public List<Perfil> listarPerfil(){
+    public List<Perfil> getAllPerfil(){
         return perfilRepository.findAll();
     }
 
-    public Perfil buscarPerfil(Long id){
+    public Perfil getPerfil(Long id){
         return perfilRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Perfil não encontrado"));
     }
 
-    public Perfil atualizarPerfil(Long id, PerfilDTO perfilDTO) {
-        Perfil perfil = buscarPerfil(id);
+    public Perfil updatePerfil(Long id, PerfilDTO perfilDTO) {
+        Perfil perfil = getPerfil(id);
 
         if (perfilDTO.getNome() != null) {
             perfil.setNome(perfilDTO.getNome());
@@ -63,8 +61,7 @@ public class PerfilService {
         return perfilRepository.save(perfil);
     }
 
-    public void deletar(Long Id){
-        Perfil perfil = buscarPerfil(Id);
-        perfilRepository.delete(perfil);
+    public void deletePerfil(Long Id){
+        perfilRepository.deleteById(Id);
     }
 }
