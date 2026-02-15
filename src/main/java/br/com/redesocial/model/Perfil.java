@@ -4,16 +4,69 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import br.com.redesocial.enums.TipoPerfil;
 
 @Entity
-public final class Perfil {
+@Table(name = "perfil")
+public class Perfil {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "id_perfil")
+    private Long IdPerfil;
 
+    @Column(nullable = false)
     private String nome;
+
+    @Column(nullable = false)
     private String email;
+
+    @Column(nullable = false)
     private String senha;
-    private TipoPerfil tipoPerfil;
+
+    @Column( name = "tipo_privacidade", nullable = false)
+    private Integer tipoPrivacidade = 1;
+
+    public Long getId() {
+        return IdPerfil;
+    }
+
+    public Perfil() {
+    }
+
+    public void setId(Long id) {
+        this.IdPerfil = IdPerfil;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public Integer getTipoPrivacidade() {
+        return tipoPrivacidade;
+    }
+
+    public void setTipoPrivacidade(Integer tipoPrivacidade) {
+        this.tipoPrivacidade = tipoPrivacidade;
+    }
 }
