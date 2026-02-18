@@ -10,7 +10,7 @@ José Jonathan Soares Braga
 
 ## Descrição do Projeto
 Este projeto consiste no desenvolvimento de um banco de dados relacional para uma rede social que permite que o usuário interaja com outros por meio de conversas ou interações e realize publicações.
-O banco foi modelado, implementado e povoado utilizando Docker.
+A aplicação foi modelada, implementada e povoada utilizando Docker e encontra-se rodando na porta ******.
 
 ## 1. Como Executar o Projeto
 
@@ -33,15 +33,15 @@ cd Rede-Social
 ```bash
 docker-compose up --build
 ```
-4. Assim, o porjeto estará rodando na porta *****
 
 ## 2. Esquema conceitual do Banco de Dados
 
+O esquema conceitual encontra-se no arquivo abaixo, contendo a representação visual das tabelas, entidades e relacionamentos implementados no banco: 
 ![Esquema Conceitual do Banco de Dados](/docs/esquema_conceitual.jpg)
 
 ## 3. Dicionário de Dados
 
- O dicionário de dados encontra-se no arquivo pdf abaixo, contendo descrição das tabelas, atributos, tipos de dados e restrições
+ O dicionário de dados encontra-se no arquivo pdf abaixo, contendo descrição das tabelas, atributos, tipos de dados e restrições: 
  [Acessar Dicionário de Dados](./docs/dicionario_dados.pdf)
 
 ## 4. Povoamento do Banco de Dados
