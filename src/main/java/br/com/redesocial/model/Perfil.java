@@ -38,7 +38,11 @@ public class Perfil {
     @OneToMany(mappedBy = "seguido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Segue> seguidores = new ArrayList<>();
 
+    @OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Conversa> conversas = new ArrayList<>();
 
+    @OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Participa> participa = new ArrayList<>();
 
     public Long getId() {
         return id;

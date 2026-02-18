@@ -3,15 +3,21 @@ package br.com.redesocial.service;
 import br.com.redesocial.dto.PerfilDTO;
 import br.com.redesocial.model.Perfil;
 import br.com.redesocial.repository.PerfilRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import br.com.redesocial.repository.ParticipaRepository;
+import java.util.Optional;
 
 @Service
 public class PerfilService {
 
     @Autowired
     private PerfilRepository perfilRepository;
+
+    @Autowired
+    private ParticipaRepository participaRepository;
 
     public Perfil createPerfil(PerfilDTO perfilDTO){
         if(perfilRepository.existsByEmail(perfilDTO.getEmail())){
@@ -61,7 +67,11 @@ public class PerfilService {
         return perfilRepository.save(perfil);
     }
 
+    @Transactional
     public void deletePerfil(Long Id){
-        perfilRepository.deleteById(Id);
+        Perfil perfil = perfilRepository.findById(Id)
+                .orElseThrow(() -> new RuntimeException("Perfil não encontrado"));
+
+        perfilRepository.delete(perfil);
     }
 }

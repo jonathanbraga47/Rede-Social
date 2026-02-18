@@ -20,6 +20,8 @@ public class SegueService {
 
     @Autowired
     private PerfilRepository perfilRepository;
+    @Autowired
+    private ConversaService conversaService;
 
     @Transactional
     public SegueDTO seguirPerfil(Long idPerfilSeguidor, Long idPerfilSeguido){
@@ -43,6 +45,8 @@ public class SegueService {
         //cria relacionamento
         Segue segue = new Segue(seguidor, seguido);
         segueRepository.save(segue);
+
+        conversaService.criarConversa(idPerfilSeguidor, idPerfilSeguido);
 
         return convertToDTO(segue);
     }
