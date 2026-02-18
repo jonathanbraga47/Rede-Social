@@ -7,6 +7,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.*;
 import br.com.redesocial.enums.TipoPerfil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "perfil")
 public class Perfil {
@@ -26,7 +29,14 @@ public class Perfil {
     @Column( name = "tipo_privacidade", nullable = false)
     private Integer tipoPrivacidade = 1;
 
+    @OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Publicacao> publicacoes = new ArrayList<>();
 
+    @OneToMany(mappedBy = "seguidor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Segue> seguindo = new ArrayList<>();
+
+    @OneToMany(mappedBy = "seguido", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Segue> seguidores = new ArrayList<>();
 
 
 
@@ -60,4 +70,10 @@ public class Perfil {
     public void setTipoPrivacidade(Integer tipoPrivacidade) {
         this.tipoPrivacidade = tipoPrivacidade;
     }
+    public List<Publicacao> getPublicacoes() {return publicacoes;}
+    public void setPublicacoes(List<Publicacao> publicacoes) { this.publicacoes = publicacoes; }
+    public List<Segue> getSeguidores() {return seguidores;}
+    public void setSeguidores(List<Segue> seguidores) { this.seguidores = seguidores; }
+    public List<Segue> getSeguindo() { return seguindo; }
+    public void setSeguindo(List<Segue> seguindo) { this.seguindo = seguindo; }
 }

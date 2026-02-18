@@ -3,6 +3,9 @@ package br.com.redesocial.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "publicacao")
 public class Publicacao {
@@ -19,9 +22,11 @@ public class Publicacao {
     @Column(nullable = false)
     private String legenda;
 
+    @OneToMany(mappedBy = "publicacao", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ArquivoMidia> arquivos = new ArrayList<>();
 
-
-
+    @OneToMany(mappedBy = "publicacao", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Interacao> interacoes;
 
 
 
@@ -49,4 +54,8 @@ public class Publicacao {
     public void setLegenda(String legenda) {
         this.legenda = legenda;
     }
+    public List<ArquivoMidia> getArquivos() {return arquivos;}
+    public void setArquivos(List<ArquivoMidia> arquivos) {this.arquivos = arquivos;}
+    public List<Interacao> getInteracoes() {return interacoes;}
+    public void setInteracoes(List<Interacao> interacoes) {this.interacoes = interacoes;}
 }
