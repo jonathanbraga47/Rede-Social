@@ -3,7 +3,9 @@ Projeto de uma rede social, feito para a disciplina de Banco de Dados
 
 ## Integrantes
 Kévna Tenório Brito Cavalcanti
+
 Miriã Kelly da Silva Santos
+
 José Jonathan Soares Braga
 
 ## Descrição do Projeto
@@ -21,16 +23,17 @@ O banco foi modelado, implementado e povoado utilizando Docker.
 
 1. Clone o repositório:
 ```bash
-git clone https://github.com/Miria-Kelly/Rede_Social/tree/Jonathan/docker-setup
+git clone https://github.com/jonathanbraga47/Rede-Social.git
 ```
 2. Acesse a pasta raiz do projeto no terminal:
 ```bash
-cd Rede_Social/tree/Jonathan/docker-setup
+cd Rede-Social
 ```
-3.Suba os containers Docker:
+3. Suba os containers Docker:
 ```bash
 docker-compose up --build
 ```
+4. Assim, o porjeto estará rodando na porta *****
 
 ## 2. Esquema conceitual do Banco de Dados
 
