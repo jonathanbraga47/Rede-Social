@@ -7,7 +7,8 @@ import java.util.List;
 @Entity
 @Table(name = "conversa")
 public class Conversa {
-    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_conversa")
     private Long idConversa;
 
@@ -20,6 +21,10 @@ public class Conversa {
 
     @OneToMany(mappedBy = "conversa", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Participa> participantes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "conversa", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Mensagem> mensagems = new ArrayList<>();
+
 
     public Conversa() {}
 
@@ -37,5 +42,7 @@ public class Conversa {
     public void setTipoConversa(String tipoConversa) {this.tipoConversa = tipoConversa;}
     public List<Participa> getParticipantes() {return participantes;}
     public void setParticipantes(List<Participa> participantes) {this.participantes = participantes;}
+    public List<Mensagem> getMensagems() {return mensagems;}
+    public void setMensagems(List<Mensagem> mensagems) {}
 
 }

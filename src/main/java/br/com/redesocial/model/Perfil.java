@@ -32,6 +32,9 @@ public class Perfil {
     @OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Publicacao> publicacoes = new ArrayList<>();
 
+    @OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Interacao> interacoes;
+
     @OneToMany(mappedBy = "seguidor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Segue> seguindo = new ArrayList<>();
 
@@ -43,6 +46,9 @@ public class Perfil {
 
     @OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Participa> participa = new ArrayList<>();
+
+    @OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Mensagem> mensagensEnviadas = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -80,4 +86,5 @@ public class Perfil {
     public void setSeguidores(List<Segue> seguidores) { this.seguidores = seguidores; }
     public List<Segue> getSeguindo() { return seguindo; }
     public void setSeguindo(List<Segue> seguindo) { this.seguindo = seguindo; }
+    public List<Conversa> getConversas() {return conversas;}
 }

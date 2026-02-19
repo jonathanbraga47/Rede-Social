@@ -11,8 +11,6 @@ public class InteracaoComentario extends Interacao{
 
 
 
-
-    //get e set
     public String getTexto() {
         return texto;
     }

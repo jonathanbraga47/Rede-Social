@@ -11,10 +11,15 @@ import java.util.List;
 public class Publicacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_publicacao")
     private Long id;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
+    @JoinColumn(name = "id_perfil", nullable = false)
     private Perfil perfil;
+
+    @OneToMany(mappedBy = "publicacao", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Interacao> interacoes;
 
     @Column(nullable = false)
     private LocalDateTime dataHora;
@@ -24,9 +29,6 @@ public class Publicacao {
 
     @OneToMany(mappedBy = "publicacao", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ArquivoMidia> arquivos = new ArrayList<>();
-
-    @OneToMany(mappedBy = "publicacao", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Interacao> interacoes;
 
 
 
