@@ -56,10 +56,11 @@ public class ParticipaService {
     }
 
     public List<ConversaDTO> listarConversasDePerfil(Long idPerfil){
-        Perfil perfil = perfilRepository.findById(idPerfil)
-                .orElseThrow(() -> new RuntimeException("Perfil não encontrado"));
+        if(!perfilRepository.existsById(idPerfil)){
+            throw new RuntimeException("Perfil não encontrado");
+        }
 
-        return conversaRepository.findByPerfil(perfil)
+        return conversaRepository.findConversasDoPerfil(idPerfil)
                 .stream()
                 .map(this::convertConversaToDTO)
                 .collect(Collectors.toList());
@@ -123,7 +124,6 @@ public class ParticipaService {
     private ParticipaDTO convertParticipaToDTO(Participa participa){
         ParticipaDTO dto = new ParticipaDTO();
         dto.setIdPerfil(participa.getPerfil().getId());
-        dto.setIdConversa(participa.getConversa().getIdConversa());
         dto.setPerfilNome(participa.getPerfil().getNome());
         dto.setPerfilEmail(participa.getPerfil().getEmail());
         return dto;

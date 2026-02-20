@@ -12,10 +12,6 @@ public class Conversa {
     @Column(name = "id_conversa")
     private Long idConversa;
 
-    @ManyToOne
-    @JoinColumn(name = "id_perfil", nullable = false)
-    private Perfil perfil;
-
     @Column(name = "tipo_conversa", nullable = false)
     private String tipoConversa = "privada";
 
@@ -29,15 +25,12 @@ public class Conversa {
     public Conversa() {}
 
     public Conversa(Perfil perfil) {
-        this.perfil = perfil;
         this.tipoConversa = "privada";
     }
 
     public Long getIdConversa() {return idConversa;}
 
     public void setIdConversa(Long idConversa) {this.idConversa = idConversa;}
-    public Perfil getPerfil() {return perfil;}
-    public void setPerfil(Perfil perfil) {this.perfil = perfil;}
     public String getTipoConversa() {return tipoConversa;}
     public void setTipoConversa(String tipoConversa) {this.tipoConversa = tipoConversa;}
     public List<Participa> getParticipantes() {return participantes;}

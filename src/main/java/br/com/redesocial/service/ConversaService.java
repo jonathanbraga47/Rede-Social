@@ -43,11 +43,16 @@ public class ConversaService {
             return convertToDTO(conversaExiste.get());
         }
 
-        Conversa conversa = new Conversa(seguidor);
+        Conversa conversa = new Conversa();
+        conversa.setTipoConversa("privada");
+
         Conversa conversaSalva = conversaRepository.save(conversa);
 
-        Participa participa = new Participa(seguido, conversaSalva);
-        participaRepository.save(participa);
+        Participa participa1 = new Participa(seguido, conversaSalva);
+        Participa participa2 = new Participa(seguidor, conversaSalva);
+
+        participaRepository.save(participa1);
+        participaRepository.save(participa2);
 
         return convertToDTO(conversaSalva);
     }
@@ -57,13 +62,12 @@ public class ConversaService {
     }
 
     public List<ConversaDTO> listarConversasDoPerfil(Long perfilId){
-        if(!perfilRepository.existsById(perfilId)){
-            throw new RuntimeException("Perfil não encontrado");
-        }
+        Perfil perfil = perfilRepository.findById(perfilId)
+                .orElseThrow(() -> new RuntimeException("Perfil não encontrado"));
 
-        return conversaRepository.findByPerfilId(perfilId)
+        return participaRepository.findByPerfil(perfil)
                 .stream()
-                .map(this::convertToDTO)
+                .map(participa -> convertToDTO(participa.getConversa()))
                 .collect(Collectors.toList());
     }
 
@@ -120,9 +124,6 @@ public class ConversaService {
     private ConversaDTO convertToDTO(Conversa conversa) {
         ConversaDTO dto = new ConversaDTO();
         dto.setIdConversa(conversa.getIdConversa());
-        dto.setIdPerfil(conversa.getPerfil().getId());
-        dto.setPerfilNome(conversa.getPerfil().getNome());
-        dto.setPerfilEmail(conversa.getPerfil().getEmail());
         dto.setTipoConversa(conversa.getTipoConversa());
 
         // Lista de participantes (não inclui o criador)
@@ -138,7 +139,6 @@ public class ConversaService {
     private ParticipaDTO convertParticipaToDTO(Participa participa) {
         ParticipaDTO dto = new ParticipaDTO();
         dto.setIdPerfil(participa.getPerfil().getId());
-        dto.setIdConversa(participa.getConversa().getIdConversa());
         dto.setPerfilNome(participa.getPerfil().getNome());
         dto.setPerfilEmail(participa.getPerfil().getEmail());
         return dto;

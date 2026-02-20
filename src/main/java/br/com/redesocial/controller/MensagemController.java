@@ -21,9 +21,9 @@ public class MensagemController {
         return ResponseEntity.ok(mensagemService.enviarMensagem(mensagemRequestDTO));
     }
 
-    @GetMapping("/getAll/{idCOnversa}")
-    public ResponseEntity<List<MensagemDTO>> getAll(@PathVariable Long idCOnversa){
-        return ResponseEntity.ok(mensagemService.listarMensagensDaConversa(idCOnversa));
+    @GetMapping("/getAll/{idConversa}")
+    public ResponseEntity<List<MensagemDTO>> getAll(@PathVariable Long idConversa){
+        return ResponseEntity.ok(mensagemService.listarMensagensDaConversa(idConversa));
     }
 
     @GetMapping("get/{idMensagem}")

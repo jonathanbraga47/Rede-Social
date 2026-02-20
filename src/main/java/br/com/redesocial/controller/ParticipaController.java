@@ -15,7 +15,7 @@ public class ParticipaController {
     @Autowired
     private ParticipaService participaService;
 
-    @PostMapping("/create/{idPerfil1}/{idPerfil2}")
+    @PostMapping("/create/{idPerfilSeguidor}/{idPerfilSeguido}")
     public ResponseEntity<ConversaDTO> adicionarParticipante(@PathVariable Long idPerfilSeguidor, @PathVariable Long idPerfilSeguido) {
         return ResponseEntity.ok(participaService.criarConversa(idPerfilSeguidor, idPerfilSeguido));
     }

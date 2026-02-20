@@ -40,9 +40,8 @@ public class MensagemService {
                 .orElseThrow(()-> new RuntimeException("Perfil não encontrado"));
 
         boolean participa = participaRepository.existsByPerfilAndConversa(perfil, conversa);
-        boolean criador = conversa.getPerfil().getId().equals(perfil.getId());
 
-        if(!participa && !criador) {
+        if(!participa) {
             throw new RuntimeException("Perfil não participa desta conversa");
         }
 
