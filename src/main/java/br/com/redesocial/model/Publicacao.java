@@ -21,10 +21,10 @@ public class Publicacao {
     @OneToMany(mappedBy = "publicacao", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Interacao> interacoes;
 
-    @Column(nullable = false)
+    @Column(name = "data_hora",nullable = false)
     private LocalDateTime dataHora;
 
-    @Column(nullable = false)
+    @Column(name = "legenda",nullable = false)
     private String legenda;
 
     @OneToMany(mappedBy = "publicacao", cascade = CascadeType.ALL, orphanRemoval = true)

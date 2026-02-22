@@ -44,7 +44,6 @@ public class ConversaService {
         }
 
         Conversa conversa = new Conversa();
-        conversa.setTipoConversa("privada");
 
         Conversa conversaSalva = conversaRepository.save(conversa);
 
@@ -87,21 +86,6 @@ public class ConversaService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional
-    public void removerParticipante(Long idPerfil, Long idConversa){
-        Perfil perfil = perfilRepository.findById(idPerfil)
-                .orElseThrow(()-> new RuntimeException("Perfil não encontrado"));
-        Conversa conversa = conversaRepository.findById(idConversa)
-                .orElseThrow(()-> new RuntimeException("Conversa não encontrada"));
-
-        if(!participaRepository.existsByPerfilAndConversa(perfil, conversa)){
-            throw new RuntimeException("Perfil não participa desta conversa");
-        }
-
-        ParticipaId id = new ParticipaId(idPerfil, idConversa);
-        participaRepository.deleteById(id);
-    }
-
     public boolean verificarParticipacao(Long idPerfil, Long idConversa){
         Perfil perfil = perfilRepository.findById(idPerfil)
                 .orElseThrow(() -> new RuntimeException("Perfil não encontrado"));
@@ -124,8 +108,6 @@ public class ConversaService {
     private ConversaDTO convertToDTO(Conversa conversa) {
         ConversaDTO dto = new ConversaDTO();
         dto.setIdConversa(conversa.getIdConversa());
-        dto.setTipoConversa(conversa.getTipoConversa());
-
         // Lista de participantes (não inclui o criador)
         List<ParticipaDTO> participantes = participaRepository.findByConversa(conversa)
                 .stream()

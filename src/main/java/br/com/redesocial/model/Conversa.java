@@ -12,9 +12,6 @@ public class Conversa {
     @Column(name = "id_conversa")
     private Long idConversa;
 
-    @Column(name = "tipo_conversa", nullable = false)
-    private String tipoConversa = "privada";
-
     @OneToMany(mappedBy = "conversa", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Participa> participantes = new ArrayList<>();
 
@@ -24,15 +21,9 @@ public class Conversa {
 
     public Conversa() {}
 
-    public Conversa(Perfil perfil) {
-        this.tipoConversa = "privada";
-    }
-
     public Long getIdConversa() {return idConversa;}
 
     public void setIdConversa(Long idConversa) {this.idConversa = idConversa;}
-    public String getTipoConversa() {return tipoConversa;}
-    public void setTipoConversa(String tipoConversa) {this.tipoConversa = tipoConversa;}
     public List<Participa> getParticipantes() {return participantes;}
     public void setParticipantes(List<Participa> participantes) {this.participantes = participantes;}
     public List<Mensagem> getMensagems() {return mensagems;}

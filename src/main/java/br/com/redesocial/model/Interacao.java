@@ -19,7 +19,7 @@ public abstract class Interacao {
     @JoinColumn(name = "id_publicacao", nullable =  false)
     private Publicacao publicacao;
 
-    @Column(nullable = false)
+    @Column(name = "data_hora",nullable = false)
     private LocalDateTime dataHora;
 
 

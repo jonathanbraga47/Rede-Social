@@ -24,14 +24,13 @@ public interface ConversaRepository extends JpaRepository<Conversa, Long> {
 
     //Busca conversa entre dois perfis
     @Query("""
-        SELECT c
-        FROM Conversa c
-        JOIN c.participantes p
-        WHERE c.tipoConversa = 'privada'
-          AND p.perfil.id IN (:perfil1Id, :perfil2Id)
-        GROUP BY c
-        HAVING COUNT(DISTINCT p.perfil.id) = 2
-    """)
+    SELECT c
+    FROM Conversa c
+    JOIN c.participantes p
+    GROUP BY c
+    HAVING COUNT(DISTINCT p.perfil.id) = 2
+       AND SUM(CASE WHEN p.perfil.id IN (:perfil1Id, :perfil2Id) THEN 1 ELSE 0 END) = 2
+""")
     Optional<Conversa> findConversaEntrePerfis(
             @Param("perfil1Id") Long perfil1Id,
             @Param("perfil2Id") Long perfil2Id

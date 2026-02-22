@@ -6,9 +6,8 @@ import jakarta.persistence.*;
 @Table(name = "interacao_comentario")
 public class InteracaoComentario extends Interacao{
 
-    @Column(nullable = false)
+    @Column(name = "texto",nullable = false)
     private String texto;
-
 
 
     public String getTexto() {

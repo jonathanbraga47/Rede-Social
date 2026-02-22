@@ -28,7 +28,6 @@ public class PerfilService {
         perfil.setEmail(perfilDTO.getEmail());
         perfil.setNome(perfilDTO.getNome());
         perfil.setSenha(perfilDTO.getSenha());
-        perfil.setTipoPrivacidade(perfilDTO.getTipoPrivacidade());
 
         return perfilRepository.save(perfil);
     }
@@ -58,10 +57,6 @@ public class PerfilService {
 
         if (perfilDTO.getSenha() != null) {
             perfil.setSenha(perfilDTO.getSenha());
-        }
-
-        if(perfilDTO.getTipoPrivacidade() != null){
-            perfil.setTipoPrivacidade(perfilDTO.getTipoPrivacidade());
         }
 
         return perfilRepository.save(perfil);

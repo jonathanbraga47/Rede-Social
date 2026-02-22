@@ -42,7 +42,7 @@ public class ParticipaService {
             return convertConversaToDTO(conversaExistente.get());
         }
 
-        Conversa conversa = new Conversa(seguidor);
+        Conversa conversa = new Conversa();
         Conversa conversaSalva = conversaRepository.save(conversa);
 
         participaRepository.save(new Participa(seguidor, conversaSalva));
@@ -110,7 +110,6 @@ public class ParticipaService {
     private ConversaDTO convertConversaToDTO(Conversa conversa){
         ConversaDTO dto = new ConversaDTO();
         dto.setIdConversa(conversa.getIdConversa());
-        dto.setTipoConversa(conversa.getTipoConversa());
 
         List<ParticipaDTO> participantes = participaRepository.findByConversa(conversa)
                 .stream()
@@ -128,5 +127,4 @@ public class ParticipaService {
         dto.setPerfilEmail(participa.getPerfil().getEmail());
         return dto;
     }
-
 }

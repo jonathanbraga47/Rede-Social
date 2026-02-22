@@ -27,7 +27,7 @@ public class ArquivoMidiaService {
 
         ArquivoMidia arquivoMidia = new ArquivoMidia();
         arquivoMidia.setPublicacao(publicacao);
-        arquivoMidia.setTipoMidia(dto.getTipoMidia());
+        arquivoMidia.setUrlMidia(dto.getTipoMidia());
 
         return arquivoMidiaRepository.save(arquivoMidia);
     }
@@ -60,7 +60,7 @@ public class ArquivoMidiaService {
     private ArquivoMidiaDTO convertDTO(ArquivoMidia arquivoMidia) {
         ArquivoMidiaDTO dto = new ArquivoMidiaDTO();
         dto.setIdArquivo(arquivoMidia.getIdArquivo());
-        dto.setTipoMidia(arquivoMidia.getTipoMidia());
+        dto.setTipoMidia(arquivoMidia.getUrlMidia());
         dto.setIdPublicacao(arquivoMidia.getPublicacao().getId());
         return dto;
     }

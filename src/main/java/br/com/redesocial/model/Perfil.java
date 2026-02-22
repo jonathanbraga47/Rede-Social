@@ -5,7 +5,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.*;
-import br.com.redesocial.enums.TipoPerfil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,19 +14,27 @@ import java.util.List;
 public class Perfil {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_perfil")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "nome")
     private String nome;
 
-    @Column(nullable = false)
+    @Column(name = "email")
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "senha")
     private String senha;
 
-    @Column( name = "tipo_privacidade", nullable = false)
-    private Integer tipoPrivacidade = 1;
+
+
+
+
+
+
+
+
+
 
     @OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Publicacao> publicacoes = new ArrayList<>();
@@ -70,12 +77,6 @@ public class Perfil {
     }
     public void setSenha(String senha) {
         this.senha = senha;
-    }
-    public Integer getTipoPrivacidade() {
-        return tipoPrivacidade;
-    }
-    public void setTipoPrivacidade(Integer tipoPrivacidade) {
-        this.tipoPrivacidade = tipoPrivacidade;
     }
     public List<Publicacao> getPublicacoes() {return publicacoes;}
     public void setPublicacoes(List<Publicacao> publicacoes) { this.publicacoes = publicacoes; }
