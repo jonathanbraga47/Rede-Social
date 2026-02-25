@@ -1,5 +1,7 @@
 package br.com.redesocial.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,13 +11,15 @@ public class Segue {
     private SegueId id;
 
     @ManyToOne
+    @JsonIgnore
     @MapsId("idPerfilSeguidor")
-    @JoinColumn(name = "id_perfil_seguidor", nullable = false)
+    @JoinColumn(name = "user_seguidor", nullable = false)
     private Perfil seguidor;
 
     @ManyToOne
+    @JsonIgnore
     @MapsId("idPerfilSeguido")
-    @JoinColumn(name = "id_perfil_seguido", nullable = false)
+    @JoinColumn(name = "user_seguido", nullable = false)
     private Perfil seguido;
 
     public Segue() {

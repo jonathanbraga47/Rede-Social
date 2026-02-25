@@ -1,5 +1,6 @@
 package br.com.redesocial.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -15,10 +16,11 @@ public class Publicacao {
     private Long id;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "id_perfil", nullable = false)
     private Perfil perfil;
 
-    @OneToMany(mappedBy = "publicacao", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "publicacao", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Interacao> interacoes;
 
     @Column(name = "data_hora",nullable = false)
@@ -27,7 +29,7 @@ public class Publicacao {
     @Column(name = "legenda",nullable = false)
     private String legenda;
 
-    @OneToMany(mappedBy = "publicacao", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "publicacao", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ArquivoMidia> arquivos = new ArrayList<>();
 
 
@@ -38,6 +40,7 @@ public class Publicacao {
     public void setId(Long id) {
         this.id = id;
     }
+    @JsonIgnore
     public Perfil getPerfil() {
         return perfil;
     }

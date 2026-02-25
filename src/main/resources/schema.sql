@@ -1,3 +1,4 @@
+-- 1. Tabelas Base (Sem Dependências)
 CREATE TABLE IF NOT EXISTS perfil (
                                       id_perfil INT AUTO_INCREMENT PRIMARY KEY,
                                       email VARCHAR(255) NOT NULL UNIQUE,
@@ -5,6 +6,11 @@ CREATE TABLE IF NOT EXISTS perfil (
     senha VARCHAR(20) NOT NULL
     );
 
+CREATE TABLE IF NOT EXISTS conversa (
+                                        id_conversa INT AUTO_INCREMENT PRIMARY KEY
+);
+
+-- 2. Tabelas de Relacionamento e Entidades Dependentes
 CREATE TABLE IF NOT EXISTS segue (
                                      user_seguidor INT,
                                      user_seguido INT,
@@ -13,10 +19,6 @@ CREATE TABLE IF NOT EXISTS segue (
     FOREIGN KEY (user_seguido) REFERENCES perfil(id_perfil) ON DELETE CASCADE,
     CONSTRAINT chk_nao_seguir_si_mesmo CHECK (user_seguidor <> user_seguido)
     );
-
-CREATE TABLE IF NOT EXISTS conversa (
-                                        id_conversa INT AUTO_INCREMENT PRIMARY KEY
-);
 
 CREATE TABLE IF NOT EXISTS participa (
                                          id_perfil INT,
@@ -71,48 +73,50 @@ CREATE TABLE IF NOT EXISTS arquivo_midia (
     FOREIGN KEY (id_publicacao) REFERENCES publicacao(id_publicacao) ON DELETE CASCADE
     );
 
+-- 3. Views (Dependem de todas as tabelas acima estarem criadas)
 CREATE OR REPLACE VIEW view_feed AS
 SELECT
-    pe.Nome,
-    pu.Legenda,
-    pu.Data_Hora,
-    am.Url_Midia,
-    (SELECT COUNT(*) FROM INTERACAO_CURTIDA ic
-                              JOIN INTERACAO i ON ic.ID_Interacao = i.ID_Interacao
-     WHERE i.ID_Publicacao = pu.ID_Publicacao) AS Total_Curtidas,
-    (SELECT COUNT(*) FROM INTERACAO_COMENTARIO ico
-                              JOIN INTERACAO i ON ico.ID_Interacao = i.ID_Interacao
-     WHERE i.ID_Publicacao = pu.ID_Publicacao) AS Total_Comentarios
-FROM PUBLICACAO pu
-         JOIN PERFIL pe ON pu.ID_Perfil = pe.ID_Perfil
-         LEFT JOIN ARQUIVO_MIDIA am ON pu.ID_Publicacao = am.ID_Publicacao;
+    pe.nome,
+    pu.legenda,
+    pu.data_hora,
+    am.url_midia,
+    (SELECT COUNT(*)
+     FROM interacao_curtida ic
+              JOIN interacao i ON ic.id_interacao = i.id_interacao
+     WHERE i.id_publicacao = pu.id_publicacao) AS total_curtidas,
+    (SELECT COUNT(*)
+     FROM interacao_comentario ico
+              JOIN interacao i ON ico.id_interacao = i.id_interacao
+     WHERE i.id_publicacao = pu.id_publicacao) AS total_comentarios
+FROM publicacao pu
+         JOIN perfil pe ON pu.id_perfil = pe.id_perfil
+         LEFT JOIN arquivo_midia am ON pu.id_publicacao = am.id_publicacao;
 
---
 CREATE OR REPLACE VIEW view_engajamento AS
 SELECT
-    pu.Id_Publicacao,
-    pe.Nome AS Autor,
-    am.Url_Midia,
-    pu.Legenda,
-    pu.Data_Hora,
-    (SELECT COUNT(*) FROM INTERACAO i WHERE i.ID_Publicacao = pu.ID_Publicacao) AS Total_Interacoes
-FROM PUBLICACAO pu
-         JOIN PERFIL pe ON pu.ID_Perfil = pe.ID_Perfil
-         LEFT JOIN ARQUIVO_MIDIA am ON pu.ID_Publicacao = am.ID_Publicacao
+    pu.id_publicacao,
+    pe.nome AS autor,
+    am.url_midia,
+    pu.legenda,
+    pu.data_hora,
+    (SELECT COUNT(*) FROM interacao i WHERE i.id_publicacao = pu.id_publicacao) AS total_interacoes
+FROM publicacao pu
+         JOIN perfil pe ON pu.id_perfil = pe.id_perfil
+         LEFT JOIN arquivo_midia am ON pu.id_publicacao = am.id_publicacao
 WHERE (
           SELECT COUNT(*)
-          FROM INTERACAO i
-          WHERE i.ID_Publicacao = pu.ID_Publicacao
+          FROM interacao i
+          WHERE i.id_publicacao = pu.id_publicacao
       ) > 3
-ORDER BY Total_Interacoes DESC;
+ORDER BY total_interacoes DESC;
 
 CREATE OR REPLACE VIEW view_historico_mensagens AS
 SELECT
-    c.ID_Conversa,
-    pe.Nome,
-    m.Conteudo,
-    m.Data_Hora
-FROM MENSAGEM m
-         JOIN CONVERSA c ON m.ID_Conversa = c.ID_Conversa
-         JOIN PERFIL pe ON m.ID_Perfil = pe.ID_Perfil
-ORDER BY m.Data_Hora ASC;
+    c.id_conversa,
+    pe.nome,
+    m.conteudo,
+    m.data_hora
+FROM mensagem m
+         JOIN conversa c ON m.id_conversa = c.id_conversa
+         JOIN perfil pe ON m.id_perfil = pe.id_perfil
+ORDER BY m.data_hora ASC;

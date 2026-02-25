@@ -2,6 +2,9 @@ package br.com.redesocial.service;
 
 import br.com.redesocial.dto.ConversaDTO;
 import br.com.redesocial.dto.ConversaRequestDTO;
+import br.com.redesocial.dto.MensagemDTO;
+import br.com.redesocial.model.Mensagem;
+
 import br.com.redesocial.dto.ParticipaDTO;
 import br.com.redesocial.model.Conversa;
 import br.com.redesocial.model.Participa;
@@ -105,16 +108,39 @@ public class ConversaService {
         conversaRepository.deleteById(idConversa);
     }
 
+    // No arquivo ConversaService.java
+
     private ConversaDTO convertToDTO(Conversa conversa) {
         ConversaDTO dto = new ConversaDTO();
         dto.setIdConversa(conversa.getIdConversa());
-        // Lista de participantes (não inclui o criador)
+
+        // Mapeamento de participantes já existente
         List<ParticipaDTO> participantes = participaRepository.findByConversa(conversa)
                 .stream()
                 .map(this::convertParticipaToDTO)
                 .collect(Collectors.toList());
-
         dto.setParticipantes(participantes);
+
+        // NOVO: Mapeamento de mensagens
+        if (conversa.getMensagems() != null) {
+            List<MensagemDTO> mensagensDTO = conversa.getMensagems().stream()
+                    .map(this::convertMensagemToDTO) // Você precisará criar este método auxiliar
+                    .collect(Collectors.toList());
+            dto.setMensagens(mensagensDTO);
+        }
+
+        return dto;
+    }
+
+    // Método auxiliar para converter Mensagem em DTO
+    private MensagemDTO convertMensagemToDTO(Mensagem mensagem) {
+        MensagemDTO dto = new MensagemDTO();
+        dto.setIdMensagem(mensagem.getIdMensagem());
+        dto.setConteudo(mensagem.getConteudo());
+        dto.setDataHora(mensagem.getDataHora());
+        dto.setIdPerfil(mensagem.getPerfil().getId());
+        dto.setPerfilNome(mensagem.getPerfil().getNome());
+        dto.setIdConversa(mensagem.getConversa().getIdConversa());
         return dto;
     }
 

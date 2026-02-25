@@ -16,7 +16,7 @@ public class Conversa {
     private List<Participa> participantes = new ArrayList<>();
 
     @OneToMany(mappedBy = "conversa", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Mensagem> mensagems = new ArrayList<>();
+    private List<Mensagem> mensagens = new ArrayList<>();
 
 
     public Conversa() {}
@@ -26,7 +26,7 @@ public class Conversa {
     public void setIdConversa(Long idConversa) {this.idConversa = idConversa;}
     public List<Participa> getParticipantes() {return participantes;}
     public void setParticipantes(List<Participa> participantes) {this.participantes = participantes;}
-    public List<Mensagem> getMensagems() {return mensagems;}
+    public List<Mensagem> getMensagems() {return mensagens;}
     public void setMensagems(List<Mensagem> mensagems) {}
 
 }

@@ -2,6 +2,8 @@ package br.com.redesocial.repository;
 
 import br.com.redesocial.model.Conversa;
 import br.com.redesocial.model.Perfil;
+import br.com.redesocial.model.Mensagem;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

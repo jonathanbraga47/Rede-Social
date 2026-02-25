@@ -40,5 +40,4 @@ public class PublicacaoController {
         publicacaoService.deletePublicacao(id);
         return ResponseEntity.noContent().build();
     }
-
 }

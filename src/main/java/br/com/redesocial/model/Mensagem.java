@@ -1,5 +1,6 @@
 package br.com.redesocial.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -12,6 +13,7 @@ public class Mensagem {
     private Long idMensagem;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "Id_conversa", nullable = false)
     private Conversa conversa;
 
@@ -36,6 +38,7 @@ public class Mensagem {
 
     public Long getIdMensagem() { return idMensagem; }
     public void setIdMensagem(Long idMensagem) { this.idMensagem = idMensagem; }
+    @JsonIgnore
     public Conversa getConversa() { return conversa; }
     public void setConversa(Conversa conversa) { this.conversa = conversa; }
     public Perfil getPerfil() { return perfil; }

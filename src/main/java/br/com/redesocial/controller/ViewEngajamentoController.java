@@ -5,13 +5,15 @@ import br.com.redesocial.repository.ViewEngajamentoRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Repository
+@RestController
 @RequestMapping("/viewEngajamento")
 public class ViewEngajamentoController {
-    private final ViewEngajamentoRepository repository;
+
+    private ViewEngajamentoRepository repository;
 
     public ViewEngajamentoController(ViewEngajamentoRepository repository) {
         this.repository = repository;

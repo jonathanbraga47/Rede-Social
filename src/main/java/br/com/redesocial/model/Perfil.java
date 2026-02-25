@@ -29,13 +29,6 @@ public class Perfil {
 
 
 
-
-
-
-
-
-
-
     @OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Publicacao> publicacoes = new ArrayList<>();
 

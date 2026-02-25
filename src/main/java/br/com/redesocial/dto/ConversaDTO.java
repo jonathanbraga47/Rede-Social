@@ -6,6 +6,15 @@ public class ConversaDTO {
     private Long idConversa;
 
     private List<ParticipaDTO> participantes;
+    private List<MensagemDTO> mensagens;
+
+    public List<MensagemDTO> getMensagens() {
+        return mensagens;
+    }
+
+    public void setMensagens(List<MensagemDTO> mensagens) {
+        this.mensagens = mensagens;
+    }
 
     public ConversaDTO() {}
     public Long getIdConversa() {return idConversa;}
