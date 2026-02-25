@@ -1,0 +1,33 @@
+services:
+  mysql-db:
+    image: mysql:8.0
+    container_name: db_redesocial
+    environment:
+      MYSQL_DATABASE: rede_social
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306" # Você acessa por fora via 3307 para não dar conflito
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    container_name: api_redesocial
+    ports:
+      - "8080:8080"
+    environment:
+      # O host 'mysql-db' refere-se ao nome do serviço acima
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/rede_social?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    container_name: web_redesocial
+    ports:
+      - "3000:3000" # Porta padrão do React/Vue/Angular
