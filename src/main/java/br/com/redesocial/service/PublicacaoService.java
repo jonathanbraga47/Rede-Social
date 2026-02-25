@@ -7,6 +7,7 @@ import br.com.redesocial.repository.PublicacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,23 +30,52 @@ public class PublicacaoService {
         return publicacaoRepository.save(publicacao);
     }
 
-    public List<Publicacao> getAllPublicacao(){
-        return publicacaoRepository.findAll();
+    public List<PublicacaoDTO> getAllPublicacao(){
+        List<PublicacaoDTO> publicacoes = new ArrayList<>();
+        for(Publicacao p: publicacaoRepository.findAll()){
+            publicacoes.add(convertToDTO(p));
+        }
+        return publicacoes;
     }
 
-    public Publicacao getPublicacao(Long id) {
-        return publicacaoRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Publicação não encontrada"));
+    public PublicacaoDTO getPublicacao(Long id) {
+        Publicacao publicacao = publicacaoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Publicação não encontrada"));
+
+        return convertToDTO(publicacao);
     }
 
-    public Publicacao updatePublicacao(Long id, PublicacaoDTO publicacaoDTO) {
-        Publicacao publicacao = getPublicacao(id);
+    // Crie este método auxiliar para mapear os dados
+    private PublicacaoDTO convertToDTO(Publicacao publicacao) {
+        PublicacaoDTO dto = new PublicacaoDTO();
+        dto.setId(publicacao.getId());
+        dto.setLegenda(publicacao.getLegenda());
+        dto.setDataHora(publicacao.getDataHora());
+        dto.setInteracoes(publicacao.getInteracoes());
 
+        // Aqui pegamos os dados do objeto Perfil que está dentro da Publicação
+        if (publicacao.getPerfil() != null) {
+            dto.setPerfilId(publicacao.getPerfil().getId());
+        }
+
+        return dto;
+    }
+
+    public PublicacaoDTO updatePublicacao(Long id, PublicacaoDTO publicacaoDTO) {
+        // 1. Busca a ENTIDADE diretamente do repository
+        Publicacao publicacao = publicacaoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Publicação não encontrada"));
+
+        // 2. Atualiza os campos necessários
         if(publicacaoDTO.getLegenda() != null && !publicacaoDTO.getLegenda().isBlank()) {
             publicacao.setLegenda(publicacaoDTO.getLegenda());
         }
 
-        return publicacaoRepository.save(publicacao);
+        // 3. Salva a entidade
+        Publicacao publicacaoAtualizada = publicacaoRepository.save(publicacao);
+
+        // 4. Retorna o DTO (usando aquele método de conversão que criamos)
+        return convertToDTO(publicacaoAtualizada);
     }
 
     public void deletePublicacao(Long id) {

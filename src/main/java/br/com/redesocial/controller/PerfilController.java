@@ -1,5 +1,6 @@
 package br.com.redesocial.controller;
 import br.com.redesocial.dto.PerfilDTO;
+import br.com.redesocial.model.Publicacao;
 import br.com.redesocial.service.PerfilService;
 import br.com.redesocial.model.Perfil;
 import jakarta.validation.Valid;
@@ -28,6 +29,11 @@ public class PerfilController {
     @GetMapping("/get/{id}")
     public ResponseEntity<Perfil> getPerfil(@PathVariable Long id){
         return ResponseEntity.ok(perfilService.getPerfil(id));
+    }
+
+    @GetMapping("get/{id}/publicacoes")
+    public ResponseEntity<List<Publicacao>> getPerfilAllPublicacoes(@PathVariable Long id){
+        return ResponseEntity.ok(perfilService.listarPublicacoesDoPerfil(id));
     }
 
     @PutMapping("/update/{id}")

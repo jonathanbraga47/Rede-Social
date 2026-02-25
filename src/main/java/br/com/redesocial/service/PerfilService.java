@@ -2,6 +2,7 @@ package br.com.redesocial.service;
 
 import br.com.redesocial.dto.PerfilDTO;
 import br.com.redesocial.model.Perfil;
+import br.com.redesocial.model.Publicacao;
 import br.com.redesocial.repository.PerfilRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,4 +70,14 @@ public class PerfilService {
 
         perfilRepository.delete(perfil);
     }
+
+    public List<Publicacao> listarPublicacoesDoPerfil(Long id) {
+        // Busca o perfil ou lança exceção se não encontrar
+        Perfil perfil = perfilRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Perfil não encontrado"));
+
+        // Retorna a lista de publicações associada ao perfil
+        return perfil.getPublicacoes();
+    }
+
 }

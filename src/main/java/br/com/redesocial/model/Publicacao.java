@@ -1,6 +1,7 @@
 package br.com.redesocial.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -16,7 +17,7 @@ public class Publicacao {
     private Long id;
 
     @ManyToOne
-    @JsonIgnore
+    @JsonIgnoreProperties({"email", "senha", "publicacoes", "seguindo", "seguidores"})
     @JoinColumn(name = "id_perfil", nullable = false)
     private Perfil perfil;
 
@@ -40,7 +41,6 @@ public class Publicacao {
     public void setId(Long id) {
         this.id = id;
     }
-    @JsonIgnore
     public Perfil getPerfil() {
         return perfil;
     }

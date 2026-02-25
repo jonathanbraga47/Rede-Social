@@ -21,17 +21,17 @@ public class PublicacaoController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<Publicacao>> getAllPublicacoes() {
+    public ResponseEntity<List<PublicacaoDTO>> getAllPublicacoes() {
         return ResponseEntity.ok(publicacaoService.getAllPublicacao());
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<Publicacao> getPublicacao(@PathVariable Long id) {
+    public ResponseEntity<PublicacaoDTO> getPublicacao(@PathVariable Long id) {
         return ResponseEntity.ok(publicacaoService.getPublicacao(id));
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Publicacao> updatePublicacao(@PathVariable Long id, @RequestBody PublicacaoDTO publicacaoDTO) {
+    public ResponseEntity<PublicacaoDTO> updatePublicacao(@PathVariable Long id, @RequestBody PublicacaoDTO publicacaoDTO) {
         return ResponseEntity.ok(publicacaoService.updatePublicacao(id, publicacaoDTO));
     }
 
