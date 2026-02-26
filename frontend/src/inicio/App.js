@@ -11,6 +11,7 @@ import Seguindo from '../entrar/Seguindo';
 import Seguidores from '../entrar/Seguidores';
 import SeguirFormulario from '../entrar/Seguir';
 import Engajamento from '../View/Engajamento';
+import Criar_Pub from '../entrar/Criar_Pub';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
       <Route path="/segue/seguindo/:id" element={<Seguindo/>} />
       <Route path="/conversas/:idPerfil" element={<Conversas />} />
       <Route path="/seguir/:id" element={<SeguirFormulario />} />
+      <Route path="/publicacao/create/:perfilId" element={<Criar_Pub />} />
     </Routes>
     </BrowserRouter>
   );

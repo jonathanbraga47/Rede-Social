@@ -41,7 +41,7 @@ export default function Conversas() {
             },
             body: JSON.stringify({
                 idConversa: idConversaSelecionada,
-                perfil: idPerfil,
+                idPerfil: idPerfil,
                 conteudo: novaMensagem
             })
         })

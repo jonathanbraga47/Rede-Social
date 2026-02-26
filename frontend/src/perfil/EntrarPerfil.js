@@ -84,6 +84,9 @@ export default function EntrarPerfil() {
                 <Link to={`/conversas/${id}`}>
                     Conversas
                 </Link>{" "}
+                <Link to={`/publicacao/create/${id}`}>
+                    publicacao
+                </Link>{" "}
                 <Link to={`/seguir/${id}`}>
                     Seguir
                 </Link>{" "}
