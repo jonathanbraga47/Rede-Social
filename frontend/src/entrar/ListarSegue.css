@@ -1,0 +1,57 @@
+/* Fundo geral */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #5f2c82, #6a5acd);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container principal */
+.lista-container {
+    background: #d9d9d9;
+    padding: 40px;
+    border-radius: 25px;
+    width: 400px;
+    max-width: 90%;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Título */
+.lista-container h2 {
+    margin-bottom: 25px;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Texto vazio */
+.lista-container p {
+    color: #555;
+    font-size: 15px;
+}
+
+/* Item de perfil */
+.perfil-item {
+    margin: 10px 0;
+}
+
+/* Link estilo botão */
+.perfil-item a {
+    display: inline-block;
+    padding: 10px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+    background: linear-gradient(135deg, #6a5acd, #7b68ee);
+    color: white;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+/* Hover */
+.perfil-item a:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}

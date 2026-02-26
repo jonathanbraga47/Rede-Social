@@ -1,0 +1,37 @@
+.container-publicacoes {
+    width: 90%;
+    margin: 30px auto;
+    font-family: Arial, sans-serif;
+}
+
+.container-publicacoes h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.tabela-container {
+    max-height: 400px; /* altura da área com rolagem */
+    overflow-y: auto;
+    border: 1px solid #4e4747;
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #2c3e50;
+    color: white;
+    position: sticky;
+    top: 0;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #000000;
+    color:#000000
+}
+

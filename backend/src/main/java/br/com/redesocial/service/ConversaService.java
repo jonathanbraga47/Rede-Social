@@ -1,0 +1,155 @@
+package br.com.redesocial.service;
+
+import br.com.redesocial.dto.ConversaDTO;
+import br.com.redesocial.dto.ConversaRequestDTO;
+import br.com.redesocial.dto.MensagemDTO;
+import br.com.redesocial.model.Mensagem;
+
+import br.com.redesocial.dto.ParticipaDTO;
+import br.com.redesocial.model.Conversa;
+import br.com.redesocial.model.Participa;
+import br.com.redesocial.model.ParticipaId;
+import br.com.redesocial.model.Perfil;
+import br.com.redesocial.repository.ConversaRepository;
+import br.com.redesocial.repository.ParticipaRepository;
+import br.com.redesocial.repository.PerfilRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+public class ConversaService {
+    @Autowired
+    private ConversaRepository conversaRepository;
+
+    @Autowired
+    private ParticipaRepository participaRepository;
+
+    @Autowired
+    private PerfilRepository perfilRepository;
+
+    @Transactional
+    public ConversaDTO criarConversa(Long idPerfilSeguidor, Long idPerfilSeguido){
+        Perfil seguidor = perfilRepository.findById(idPerfilSeguidor)
+                .orElseThrow(() -> new RuntimeException("Perfil seguidor não encontrado"));
+
+        Perfil seguido = perfilRepository.findById(idPerfilSeguido)
+                .orElseThrow(() -> new RuntimeException("Perfil seguido não encontrado"));
+
+        Optional<Conversa> conversaExiste = buscarConversaEntrePerfis(idPerfilSeguidor, idPerfilSeguido);
+
+        if(conversaExiste.isPresent()){
+            return convertToDTO(conversaExiste.get());
+        }
+
+        Conversa conversa = new Conversa();
+
+        Conversa conversaSalva = conversaRepository.save(conversa);
+
+        Participa participa1 = new Participa(seguido, conversaSalva);
+        Participa participa2 = new Participa(seguidor, conversaSalva);
+
+        participaRepository.save(participa1);
+        participaRepository.save(participa2);
+
+        return convertToDTO(conversaSalva);
+    }
+
+    public Optional<Conversa> buscarConversaEntrePerfis(Long idPerfil1, Long IdPerfil2){
+        return conversaRepository.findConversaEntrePerfis(idPerfil1, IdPerfil2);
+    }
+
+    public List<ConversaDTO> listarConversasDoPerfil(Long perfilId){
+        Perfil perfil = perfilRepository.findById(perfilId)
+                .orElseThrow(() -> new RuntimeException("Perfil não encontrado"));
+
+        return participaRepository.findByPerfil(perfil)
+                .stream()
+                .map(participa -> convertToDTO(participa.getConversa()))
+                .collect(Collectors.toList());
+    }
+
+    public ConversaDTO buscarConversa(Long idConversa){
+        Conversa conversa = conversaRepository.findById(idConversa)
+                .orElseThrow(()-> new RuntimeException("Conversa não encontrada"));
+        return convertToDTO(conversa);
+    }
+
+    public List<ParticipaDTO> listarParticipasDoConversa(Long idConversa){
+        Conversa conversa = conversaRepository.findById(idConversa)
+                .orElseThrow(()-> new RuntimeException("Conversa não encontrada"));
+
+        return participaRepository.findByConversa(conversa)
+                .stream()
+                .map(this::convertParticipaToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public boolean verificarParticipacao(Long idPerfil, Long idConversa){
+        Perfil perfil = perfilRepository.findById(idPerfil)
+                .orElseThrow(() -> new RuntimeException("Perfil não encontrado"));
+
+        Conversa conversa = conversaRepository.findById(idConversa)
+                .orElseThrow(() -> new RuntimeException("Conversa não encontrada"));
+
+        participaRepository.existsByPerfilAndConversa(perfil, conversa);
+        return true;
+    }
+
+    @Transactional
+    public void deletarConversa(Long idConversa){
+        if (!conversaRepository.existsById(idConversa)) {
+            throw new RuntimeException("Conversa não encontrada");
+        }
+        conversaRepository.deleteById(idConversa);
+    }
+
+    // No arquivo ConversaService.java
+
+    private ConversaDTO convertToDTO(Conversa conversa) {
+        ConversaDTO dto = new ConversaDTO();
+        dto.setIdConversa(conversa.getIdConversa());
+
+        // Mapeamento de participantes já existente
+        List<ParticipaDTO> participantes = participaRepository.findByConversa(conversa)
+                .stream()
+                .map(this::convertParticipaToDTO)
+                .collect(Collectors.toList());
+        dto.setParticipantes(participantes);
+
+        // NOVO: Mapeamento de mensagens
+        if (conversa.getMensagems() != null) {
+            List<MensagemDTO> mensagensDTO = conversa.getMensagems().stream()
+                    .map(this::convertMensagemToDTO) // Você precisará criar este método auxiliar
+                    .collect(Collectors.toList());
+            dto.setMensagens(mensagensDTO);
+        }
+
+        return dto;
+    }
+
+    // Método auxiliar para converter Mensagem em DTO
+    private MensagemDTO convertMensagemToDTO(Mensagem mensagem) {
+        MensagemDTO dto = new MensagemDTO();
+        dto.setIdMensagem(mensagem.getIdMensagem());
+        dto.setConteudo(mensagem.getConteudo());
+        dto.setDataHora(mensagem.getDataHora());
+        dto.setIdPerfil(mensagem.getPerfil().getId());
+        dto.setPerfilNome(mensagem.getPerfil().getNome());
+        dto.setIdConversa(mensagem.getConversa().getIdConversa());
+        return dto;
+    }
+
+    private ParticipaDTO convertParticipaToDTO(Participa participa) {
+        ParticipaDTO dto = new ParticipaDTO();
+        dto.setIdPerfil(participa.getPerfil().getId());
+        dto.setPerfilNome(participa.getPerfil().getNome());
+        dto.setPerfilEmail(participa.getPerfil().getEmail());
+        return dto;
+    }
+
+}
