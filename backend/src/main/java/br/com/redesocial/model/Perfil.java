@@ -1,5 +1,6 @@
 package br.com.redesocial.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,9 +31,11 @@ public class Perfil {
 
 
     @OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("perfil")
     private List<Publicacao> publicacoes = new ArrayList<>();
 
     @OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("perfil")
     private List<Interacao> interacoes;
 
     @OneToMany(mappedBy = "seguidor", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -62,8 +62,4 @@ public abstract class Interacao {
     public void setDataHora(LocalDateTime dataHora) {
         this.dataHora = dataHora;
     }
-
-    public String getTipo() {
-        return this.getTipo();
-    }
 }

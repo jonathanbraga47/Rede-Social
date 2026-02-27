@@ -5,8 +5,12 @@ services:
     environment:
       MYSQL_DATABASE: rede_social
       MYSQL_ROOT_PASSWORD: root
+    volumes:
+      # Mapeia os arquivos locais para a pasta de inicialização do MySQL
+      - ./init/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
+      - ./init/data.sql:/docker-entrypoint-initdb.d/2-data.sql
     ports:
-      - "3307:3306" # Você acessa por fora via 3307 para não dar conflito
+      - "3307:3306"
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 5s
@@ -18,7 +22,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      # O host 'mysql-db' refere-se ao nome do serviço acima
+      # Sobrescreve as propriedades do arquivo se necessário
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/rede_social?createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
@@ -30,4 +34,6 @@ services:
     build: ./frontend
     container_name: web_redesocial
     ports:
-      - "3000:3000" # Porta padrão do React/Vue/Angular
+      - "3000:80" # Mapeia a porta 3000 do seu PC para a 80 do Nginx no container
+    depends_on:
+      - backend

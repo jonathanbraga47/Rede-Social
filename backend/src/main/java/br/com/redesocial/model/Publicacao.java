@@ -3,6 +3,8 @@ package br.com.redesocial.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import org.hibernate.annotations.BatchSize;
+
 import java.time.LocalDateTime;
 
 import java.util.ArrayList;
@@ -21,7 +23,9 @@ public class Publicacao {
     @JoinColumn(name = "id_perfil", nullable = false)
     private Perfil perfil;
 
-    @OneToMany(mappedBy = "publicacao", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "publicacao", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @BatchSize(size = 20)
+    @JsonIgnoreProperties("publicacao")
     private List<Interacao> interacoes;
 
     @Column(name = "data_hora",nullable = false)
@@ -30,7 +34,9 @@ public class Publicacao {
     @Column(name = "legenda",nullable = false)
     private String legenda;
 
-    @OneToMany(mappedBy = "publicacao", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "publicacao", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @BatchSize(size = 20)
+    @JsonIgnoreProperties("publicacao")
     private List<ArquivoMidia> arquivos = new ArrayList<>();
 
 

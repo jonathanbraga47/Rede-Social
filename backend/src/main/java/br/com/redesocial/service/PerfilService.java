@@ -6,7 +6,8 @@ import br.com.redesocial.dto.PublicacaoDTO;
 import br.com.redesocial.model.Perfil;
 import br.com.redesocial.model.Publicacao;
 import br.com.redesocial.repository.PerfilRepository;
-import jakarta.transaction.Transactional;
+import br.com.redesocial.repository.PublicacaoRepository;
+import org.springframework.transaction.annotation.Transactional; // ✅ Adicione esta
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -21,6 +22,9 @@ public class PerfilService {
 
     @Autowired
     private ParticipaRepository participaRepository;
+
+    @Autowired
+    private PublicacaoRepository publicacaoRepository;
 
     public Perfil createPerfil(PerfilDTO perfilDTO){
         if(perfilRepository.existsByEmail(perfilDTO.getEmail())){
@@ -73,11 +77,22 @@ public class PerfilService {
         perfilRepository.delete(perfil);
     }
 
+    @Transactional(readOnly = true)
     public List<Publicacao> listarPublicacoesDoPerfil(Long id) {
-        // Busca o perfil ou lança exceção se não encontrar
-         Perfil perfil = perfilRepository.findById(id) .orElseThrow(() -> new RuntimeException("Perfil não encontrado"));
-        // Retorna a lista de publicações associada ao perfil
-        return perfil.getPublicacoes();
+        // Busca as publicações (os filhos 'arquivos' e 'interacoes' virão via BatchSize)
+        List<Publicacao> publicacoes = publicacaoRepository.findByPerfilId(id);
+
+        if (publicacoes.isEmpty() && !perfilRepository.existsById(id)) {
+            throw new RuntimeException("Perfil não encontrado");
+        }
+
+        // Opcional: Forçar inicialização para garantir que o erro não ocorra no Jackson
+        publicacoes.forEach(p -> {
+            p.getInteracoes().size();
+            p.getArquivos().size();
+        });
+
+        return publicacoes;
     }
 
 }

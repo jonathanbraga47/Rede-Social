@@ -1,240 +1,127 @@
-/* Reset básico */
+/* Reset e Base */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Fundo roxo degradê */
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   min-height: 100vh;
-  background: linear-gradient(135deg, #5b2c83, #6f42c1);
+  /* Fundo degradê moderno */
+  background: linear-gradient(135deg, #f0f2f8 0%, #e5eaff 100%);
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; 
+  align-items: center;     
+  padding: 40px; /* Mais respiro nas bordas da tela */
 }
 
-/* Root ocupa tela toda */
-#root {
-  width: 100%;
-}
-
-/* Container padrão das páginas */
-.app-container {
-  background: #f5f5f5;
-  width: 100%;
-  max-width: 1000px;
-  border-radius: 20px;
-  padding: 40px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-}
-
-/* Título principal */
-.page-title {
-  font-size: 26px;
-  font-weight: 600;
-  color: #4b2a75;
-  margin-bottom: 30px;
-}
-
-/* Botões padrão roxo */
-.btn-primary {
-  background: #6f42c1;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.btn-primary:hover {
-  background: #5b2c83;
-}
-
-/* Botão vermelho */
-.btn-danger {
-  background: #dc3545;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.btn-danger:hover {
-  background: #b02a37;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Fundo geral */
-body {
-  background-color: #f4f6fb;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* Container central */
+/* Container que envolve a tabela */
 .container {
+  width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 60px;
 }
 
-/* Caixa da tabela */
+/* Caixa da tabela - AMPLIADA */
 .table-card {
-  width: 800px;
+  width: 100%;
+  max-width: 1200px; 
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-  padding: 20px 30px;
+  border-radius: 24px; /* Cantos mais arredondados */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+  padding: 50px; /* Muito mais espaço interno */
 }
 
-/* Título */
+/* Cabeçalho (Título + Botão) */
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
 .table-title {
-  text-align: center;
-  font-size: 22px;
-  font-weight: 600;
-  margin-bottom: 20px;
-  color: #5e4b8b;
+  font-size: 34px; /* Título bem imponente */
+  font-weight: 800;
+  color: #3a2060;
+  letter-spacing: -0.5px;
 }
 
-/* Tabela */
+/* Tabela Ampliada */
 table {
   width: 100%;
   border-collapse: collapse;
+  font-size: 18px; /* Texto dos dados maior */
 }
 
-/* Cabeçalho */
 thead {
   background-color: #7d5fff;
   color: white;
 }
 
 th {
-  padding: 12px;
+  padding: 20px;
   text-align: left;
-  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 15px;
+  font-weight: 700;
 }
 
-/* Corpo */
 td {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
-  font-size: 14px;
+  padding: 22px 20px; /* Células mais altas */
+  border-bottom: 1px solid #f0f0f0;
+  color: #333;
 }
 
-/* Linhas alternadas */
-tbody tr:nth-child(even) {
-  background-color: #f8f9ff;
-}
-
-/* Hover suave */
+/* Efeitos de linha */
 tbody tr:hover {
-  background-color: #ecebff;
-  transition: 0.2s;
+  background-color: #f7f6ff;
+  transition: 0.2s ease;
 }
 
-/* Cabeçalho da tabela (título + botão) */
-.table-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.add-button {
+/* Botões Grandiosos */
+.add-button, .btn-primary {
   background-color: #7d5fff;
   color: white;
-  padding: 8px 16px;
-  border-radius: 8px;
+  padding: 16px 32px; /* Botão de ação bem grande */
+  border-radius: 14px;
   text-decoration: none;
-  font-size: 14px;
-  transition: 0.2s;
-  display: inline-block;
+  font-weight: 700;
+  font-size: 16px;
+  transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(125, 95, 255, 0.3);
 }
 
 .add-button:hover {
   background-color: #5f4bcc;
+  transform: scale(1.05); /* Efeito de pulo ao passar o mouse */
+}
+
+.action-button, .delete-button {
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  margin-left: 8px;
 }
 
 .action-button {
   background-color: #7d5fff;
   color: white;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 20px;
-  font-size: 15px;
-  cursor: pointer;
-  transition: 0.2s ease;
 }
+
 .delete-button {
-  background-color: #cf1e1e;
+  background-color: #ff4d4d;
   color: white;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 20px;
-  font-size: 15px;
-  cursor: pointer;
-  transition: 0.2s ease;
-  
-  
+}
+
+.delete-button:hover {
+  background-color: #e60000;
+  transform: translateY(-2px);
 }
