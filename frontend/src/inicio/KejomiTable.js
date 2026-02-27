@@ -27,7 +27,7 @@ function KejomiTable() {
                 + Cadastrar
             </Link>
             <h2 className="engajamento"></h2>
-            <Link to="/viewEngajamento/engajamento" className="add-button">
+            <Link to="/views" className="add-button">
                 Vizualizar Views
             </Link>
         </div>

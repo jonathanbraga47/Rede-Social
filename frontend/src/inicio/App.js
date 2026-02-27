@@ -12,8 +12,8 @@ import Seguidores from '../entrar/Seguidores';
 import SeguirFormulario from '../entrar/Seguir';
 import Engajamento from '../View/Engajamento';
 import Criar_Pub from '../entrar/Criar_Pub';
-import Feed from '../entrar/Interagir';
 import Interagir from '../entrar/Interagir';
+import ViewsTable from '../View/ViewTable';
 
 function App() {
   return (
@@ -32,6 +32,7 @@ function App() {
       <Route path="/seguir/:id" element={<SeguirFormulario />} />
       <Route path="/publicacao/create/:perfilId" element={<Criar_Pub />} />
       <Route path="/interagir/:id" element={<Interagir/>} />
+      <Route path="/views" element={<ViewsTable/>} />
     </Routes>
     </BrowserRouter>
   );
