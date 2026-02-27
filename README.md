@@ -19,6 +19,7 @@ O banco foi modelado, implementado e povoado utilizando Docker.
 - Git
 
 ### Passos para execução
+Após já estar com o Docker Desktop aberto e rodando;
 
 1. Clone o repositório:
 ```bash
