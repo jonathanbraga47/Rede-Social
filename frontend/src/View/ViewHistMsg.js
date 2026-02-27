@@ -59,10 +59,10 @@ export default function ViewHistoricoMensagens() {
           </thead>
           <tbody>
             {mensagens.map((msg) => (
-              <tr key={msg.id}>
+              <tr key={msg.idConversa}>
                 <td>{msg.idConversa}</td>
-                <td>{msg.nomeRemetente}</td>
-                <td>{msg.conteudo}</td>
+                <td>{msg.nome}</td>
+                <td>{msg.mensagem}</td>
                 <td>{msg.dataHora}</td>
               </tr>
             ))}
