@@ -28,7 +28,7 @@ function KejomiTable() {
             </Link>
             <h2 className="engajamento"></h2>
             <Link to="/viewEngajamento/engajamento" className="add-button">
-                Mais Engajadas
+                Vizualizar Views
             </Link>
         </div>
 
