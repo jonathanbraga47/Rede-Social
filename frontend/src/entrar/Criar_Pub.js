@@ -84,7 +84,7 @@ export default function Criar_Pub() {
       {mensagem && (
         <p
           style={{
-            color: tipoMensagem === "sucesso" ? "green" : "red",
+            color: tipoMensagem === "sucesso" ? "white" : "red",
             fontWeight: "bold"
           }}
         >

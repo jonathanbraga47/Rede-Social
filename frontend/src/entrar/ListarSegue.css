@@ -9,15 +9,27 @@ body {
     min-height: 100vh;
 }
 
-/* Container principal */
+/* Container principal COM SCROLL */
 .lista-container {
     background: #d9d9d9;
     padding: 40px;
     border-radius: 25px;
     width: 400px;
-    max-width: 90%;
+    height: 500px;          /* altura fixa */
+    overflow-y: auto;       /* ativa scroll vertical */
+    overflow-x: hidden;     /* evita scroll lateral feio */
     text-align: center;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Scroll personalizada */
+.lista-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.lista-container::-webkit-scrollbar-thumb {
+    background: #6a5acd;
+    border-radius: 10px;
 }
 
 /* Título */
