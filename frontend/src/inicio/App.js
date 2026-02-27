@@ -14,6 +14,8 @@ import Engajamento from '../View/Engajamento';
 import Criar_Pub from '../entrar/Criar_Pub';
 import Interagir from '../entrar/Interagir';
 import ViewsTable from '../View/ViewTable';
+import ViewHistoricoMensagens from '../View/ViewHistMsg';
+import ViewFeed from '../View/ViewFeed';
 
 function App() {
   return (
@@ -33,6 +35,10 @@ function App() {
       <Route path="/publicacao/create/:perfilId" element={<Criar_Pub />} />
       <Route path="/interagir/:id" element={<Interagir/>} />
       <Route path="/views" element={<ViewsTable/>} />
+      <Route path="/viewEngajamento/engajamento" element={<ViewsTable/>} />
+      <Route path="/viewFeed/feed" element={<ViewFeed/>} />
+      <Route path="/historicoMensagem/historico/:id" element={<ViewHistoricoMensagens />} />
+
     </Routes>
     </BrowserRouter>
   );
