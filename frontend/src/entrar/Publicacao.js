@@ -4,7 +4,12 @@ import "./Publicacao.css";
 
 export default function Publicacoes() {
     const { id } = useParams();
+
     const [publicacoes, setPublicacoes] = useState([]);
+    const [selecionadas, setSelecionadas] = useState([]);
+    const [editandoId, setEditandoId] = useState(null);
+    const [novaLegenda, setNovaLegenda] = useState("");
+
     const [erro, setErro] = useState(null);
     const [carregando, setCarregando] = useState(true);
 
@@ -29,6 +34,85 @@ export default function Publicacoes() {
         carregarPublicacoes();
     }, [id]);
 
+    // ===============================
+    // Selecionar / Desselecionar
+    // ===============================
+    function toggleSelecionada(pubId) {
+        if (selecionadas.includes(pubId)) {
+            setSelecionadas(selecionadas.filter(id => id !== pubId));
+        } else {
+            setSelecionadas([...selecionadas, pubId]);
+        }
+    }
+
+    // ===============================
+    // DELETAR
+    // ===============================
+    async function deletarPublicacoes() {
+        if (selecionadas.length === 0) {
+            alert("Selecione pelo menos uma publicação.");
+            return;
+        }
+
+        if (!window.confirm("Tem certeza que deseja deletar?")) return;
+
+        try {
+            for (let pubId of selecionadas) {
+                const resposta = await fetch(`http://localhost:8080/publicacao/delete/${pubId}`, {
+                    method: "DELETE"
+                });
+
+                if (!resposta.ok) {
+                    throw new Error(`Erro ao deletar publicação ${pubId}`);
+                }
+            }
+
+            // Atualiza tela
+            setPublicacoes(publicacoes.filter(pub => !selecionadas.includes(pub.id)));
+            setSelecionadas([]);
+
+        } catch (error) {
+            alert(error.message);
+        }
+    }
+
+    // ===============================
+    // EDITAR
+    // ===============================
+    function iniciarEdicao(pub) {
+        setEditandoId(pub.id);
+        setNovaLegenda(pub.legenda);
+    }
+
+    async function salvarEdicao(pubId) {
+        try {
+            const resposta = await fetch(`http://localhost:8080/publicacao/update/${pubId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    legenda: novaLegenda
+                })
+            });
+
+            if (!resposta.ok) {
+                throw new Error("Erro ao atualizar publicação");
+            }
+
+            // Atualiza no estado
+            setPublicacoes(publicacoes.map(pub =>
+                pub.id === pubId ? { ...pub, legenda: novaLegenda } : pub
+            ));
+
+            setEditandoId(null);
+            setNovaLegenda("");
+
+        } catch (error) {
+            alert(error.message);
+        }
+    }
+
     if (carregando) return <p>Carregando...</p>;
     if (erro) return <p>{erro}</p>;
 
@@ -36,28 +120,70 @@ export default function Publicacoes() {
         <div className="container-publicacoes">
             <h2>Publicações</h2>
 
+            <button
+                onClick={deletarPublicacoes}
+                disabled={selecionadas.length === 0}
+                style={{ marginBottom: "10px" }}
+            >
+                Deletar Selecionadas
+            </button>
+
             <div className="tabela-container">
                 <table>
                     <thead>
                         <tr>
+                            <th></th>
                             <th>ID</th>
                             <th>Legenda</th>
                             <th>Data</th>
                             <th>Qtd Interações</th>
-                            <th>Mídias:</th>
+                            <th>Mídias</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
                         {publicacoes.map((pub) => (
                             <tr key={pub.id}>
+                                <td>
+                                    <input
+                                        type="checkbox"
+                                        checked={selecionadas.includes(pub.id)}
+                                        onChange={() => toggleSelecionada(pub.id)}
+                                    />
+                                </td>
+
                                 <td>{pub.id}</td>
-                                <td>{pub.legenda}</td>
+
+                                <td>
+                                    {editandoId === pub.id ? (
+                                        <input
+                                            type="text"
+                                            value={novaLegenda}
+                                            onChange={(e) => setNovaLegenda(e.target.value)}
+                                        />
+                                    ) : (
+                                        pub.legenda
+                                    )}
+                                </td>
+
                                 <td>{pub.dataHora}</td>
                                 <td>{pub.interacoes ? pub.interacoes.length : 0}</td>
+
                                 <td>
                                     {pub.arquivos && pub.arquivos.map((arquivo, index) => (
                                         <div key={index}>{arquivo.urlMidia}</div>
                                     ))}
+                                </td>
+
+                                <td>
+                                    {editandoId === pub.id ? (
+                                        <>
+                                            <button onClick={() => salvarEdicao(pub.id)}>Salvar</button>
+                                            <button onClick={() => setEditandoId(null)}>Cancelar</button>
+                                        </>
+                                    ) : (
+                                        <button onClick={() => iniciarEdicao(pub)}>Editar</button>
+                                    )}
                                 </td>
                             </tr>
                         ))}
