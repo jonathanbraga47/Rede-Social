@@ -90,8 +90,8 @@ export default function EntrarPerfil() {
                 <Link to={`/seguir/${id}`}>
                     Seguir
                 </Link>{" "}
-                <Link to={`/feed/${id}`}>
-                    Feed
+                <Link to={`/interagir/${id}`}>
+                    Interagir
                 </Link>{" "}
             </div>
         </div>

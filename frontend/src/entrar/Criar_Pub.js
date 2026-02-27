@@ -1,26 +1,31 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
-
 export default function Criar_Pub() {
-    const { perfilId } = useParams();
+  const { perfilId } = useParams();
 
-    const [legenda, setLegenda] = useState("");
-    const [urlMidia, setUrlMidia] = useState("");
-    const [loading, setLoading] = useState(false);
+  const [legenda, setLegenda] = useState("");
+  const [urlMidia, setUrlMidia] = useState("");
+  const [loading, setLoading] = useState(false);
 
-    const criarPublicacao = async (e) => {
-        e.preventDefault();
+  const [mensagem, setMensagem] = useState("");
+  const [tipoMensagem, setTipoMensagem] = useState(""); // "sucesso" ou "erro"
+
+  const criarPublicacao = async (e) => {
+    e.preventDefault();
+
+    setMensagem("");
+    setTipoMensagem("");
 
     if (!legenda.trim()) {
-      alert("Digite uma legenda.");
+      setMensagem("Digite uma legenda.");
+      setTipoMensagem("erro");
       return;
     }
 
     setLoading(true);
-   
+
     try {
-      // 1️⃣ Criar Publicação
       const responsePub = await fetch("http://localhost:8080/publicacao/create", {
         method: "POST",
         headers: {
@@ -35,13 +40,10 @@ export default function Criar_Pub() {
       if (!responsePub.ok) {
         throw new Error("Erro ao criar publicação");
       }
-      console.log("perfilId:", perfilId);
 
       const publicacaoCriada = await responsePub.json();
       const idPublicacao = publicacaoCriada.id;
 
-      // 2️⃣ Criar ArquivoMidia (se tiver url)
-      
       if (urlMidia.trim()) {
         const responseMidia = await fetch("http://localhost:8080/arquivo-midia/create", {
           method: "POST",
@@ -50,7 +52,7 @@ export default function Criar_Pub() {
           },
           body: JSON.stringify({
             idPublicacao: idPublicacao,
-            urlMidia: "https://picsum.photos/id/"+urlMidia+"/800/600"
+            urlMidia: "https://picsum.photos/id/" + urlMidia + "/800/600"
           })
         });
 
@@ -59,13 +61,16 @@ export default function Criar_Pub() {
         }
       }
 
-      alert("Publicação criada com mídia 🚀");
+      setMensagem("Publicação criada com sucesso!");
+      setTipoMensagem("sucesso");
+
       setLegenda("");
       setUrlMidia("");
 
     } catch (error) {
       console.error(error);
-      alert("Erro ao publicar.");
+      setMensagem("Erro ao publicar.");
+      setTipoMensagem("erro");
     } finally {
       setLoading(false);
     }
@@ -75,8 +80,19 @@ export default function Criar_Pub() {
     <div style={{ padding: "20px" }}>
       <h2>Criar Publicação</h2>
 
-      <form onSubmit={criarPublicacao}>
+      {/* ✅ Mensagem */}
+      {mensagem && (
+        <p
+          style={{
+            color: tipoMensagem === "sucesso" ? "green" : "red",
+            fontWeight: "bold"
+          }}
+        >
+          {mensagem}
+        </p>
+      )}
 
+      <form onSubmit={criarPublicacao}>
         <textarea
           placeholder="Legenda"
           value={legenda}
@@ -99,7 +115,6 @@ export default function Criar_Pub() {
         <button type="submit" disabled={loading}>
           {loading ? "Publicando..." : "Publicar"}
         </button>
-
       </form>
     </div>
   );

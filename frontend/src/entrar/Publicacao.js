@@ -54,12 +54,11 @@ export default function Publicacoes() {
                                 <td>{pub.legenda}</td>
                                 <td>{pub.dataHora}</td>
                                 <td>{pub.interacoes ? pub.interacoes.length : 0}</td>
-                                <div>
-                                
-                                {pub.arquivos.map((arquivo) => (
-                                    <td>{arquivo.urlMidia}</td>
-                                ))}
-                            </div>
+                                <td>
+                                    {pub.arquivos && pub.arquivos.map((arquivo, index) => (
+                                        <div key={index}>{arquivo.urlMidia}</div>
+                                    ))}
+                                </td>
                             </tr>
                         ))}
                     </tbody>

@@ -9,6 +9,7 @@ export default function Conversas() {
     const [novaMensagem, setNovaMensagem] = useState("");
     const [idConversaSelecionada, setIdConversaSelecionada] = useState(null);
     const [mensagens, setMensagens] = useState([]);
+    const [mensagemSelecionada, setMensagemSelecionada] = useState(null);
 
     useEffect(() => {
         fetch(`http://localhost:8080/participa/getAll/${idPerfil}`)
@@ -22,13 +23,7 @@ export default function Conversas() {
 
     function selecionarConversa(id) {
         setIdConversaSelecionada(id);
-
-        fetch(`http://localhost:8080/mensagem/getAll/${id}`)
-            .then(res => res.json())
-            .then(data => {
-                setMensagens(data);
-            })
-            .catch(err => console.error("Erro ao buscar mensagens:", err));
+        carregarMensagens(id);
     }
 
     function enviarMensagem() {
@@ -45,73 +40,104 @@ export default function Conversas() {
                 conteudo: novaMensagem
             })
         })
-            .then(res => res.json())
-            .then(() => {
-                setNovaMensagem("");
-                alert("Mensagem enviada");
-            })
-            .catch(err => console.error("Erro ao enviar mensagem:", err));
+        .then(res => res.json())
+        .then(() => {
+            setNovaMensagem("");
+            carregarMensagens(idConversaSelecionada); 
+        })
+        .catch(err => console.error("Erro ao enviar mensagem:", err));
     }
-    return (
-        <div className="conversas-container">
-            <div className="lista-conversas">
-                <h2>Conversas</h2>
+    function carregarMensagens(id) {
+        fetch(`http://localhost:8080/mensagem/getAll/${id}`)
+            .then(res => res.json())
+            .then(data => {
+                setMensagens(data);
+            })
+            .catch(err => console.error("Erro ao buscar mensagens:", err));
+    }
+    function excluirMensagem(idMensagem) {
+        fetch(`http://localhost:8080/mensagem/delete/${idMensagem}`, {
+            method: "DELETE"
+        })
+        .then(() => {
+            carregarMensagens(idConversaSelecionada);
+        })
+        .catch(err => console.error("Erro ao excluir:", err));
+    }
 
-                {conversas.length === 0 && <p>Você ainda não tem conversas.</p>}
+    
+   return (
+    <div className="conversas-container">
 
-                {conversas.map(conversa => (
-                    <div
-                        key={conversa.idConversa}
-                        onClick={() => selecionarConversa(conversa.idConversa)}
-                        className="conversa-item"
-                    >
-                        <strong>Conversa #{conversa.idConversa}</strong>
+        {/* LISTA DE CONVERSAS */}
+        <div className="lista-conversas">
+            <h2>Conversas</h2>
 
-                        Participantes:
-                        {conversa.participantes.map(p => (
-                            <div key={p.idPerfil}>
-                                {p.perfilNome}
-                            </div>
-                        ))}
-                    </div>
-                ))}
-            </div>
+            {conversas.length === 0 && <p>Você ainda não tem conversas.</p>}
 
-            {idConversaSelecionada && (
-                <div className="area-mensagem">
+            {conversas.map(conversa => (
+                <div
+                    key={conversa.idConversa}
+                    onClick={() => selecionarConversa(conversa.idConversa)}
+                    className="conversa-item"
+                >
+                    <strong>Conversa #{conversa.idConversa}</strong>
+                </div>
+            ))}
+        </div>
 
-                    <h3>Mensagens</h3>
+        {/* AREA DE MENSAGENS */}
+        {idConversaSelecionada && (
+            <div className="area-mensagem">
 
-                    <div className="mensagens-lista">
+                <h3>Mensagens</h3>
+
+                <div className="mensagens-lista">
                     {mensagens.length === 0 && <p>Nenhuma mensagem ainda.</p>}
 
                     {mensagens.map(msg => (
-                        <div key={msg.idMensagem} style={{
-                            border: "1px solid #ccc",
-                            padding: "8px",
-                            marginBottom: "5px"
-                        }}>
+                        <div
+                            key={msg.idMensagem}
+                            className={`mensagem-item ${
+                                mensagemSelecionada?.idMensagem === msg.idMensagem ? "ativa" : ""
+                            }`}
+                            onClick={() => {
+                                setMensagemSelecionada(msg);
+                                setNovaMensagem(msg.conteudo);
+                            }}
+                        >
                             <strong>{msg.perfilNome}</strong>
                             <p>{msg.conteudo}</p>
                             <small>{msg.dataHora}</small>
+
+                            {mensagemSelecionada?.idMensagem === msg.idMensagem && (
+                                <div className="acoes-mensagem">
+                                  
+                                    <button onClick={(e) => {
+                                        e.stopPropagation();
+                                        excluirMensagem(msg.idMensagem);
+                                    }}>
+                                        Excluir
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     ))}
-                    </div>
-
-                    <div className="mensagem-input">
-                        <textarea
-                            value={novaMensagem}
-                            onChange={(e) => setNovaMensagem(e.target.value)}
-                            placeholder="Digite sua mensagem..."
-                            rows="3"
-                        />
-                        <button onClick={enviarMensagem}>
-                            Enviar
-                        </button>
-                    </div>
                 </div>
-            )}
-        
-        </div>
-    );
+
+                <div className="mensagem-input">
+                    <textarea
+                        value={novaMensagem}
+                        onChange={(e) => setNovaMensagem(e.target.value)}
+                        placeholder="Digite sua mensagem..."
+                        rows="3"
+                    />
+                    <button onClick={ enviarMensagem}>
+                    </button>
+                </div>
+            </div>
+        )}
+
+    </div>
+);
 }

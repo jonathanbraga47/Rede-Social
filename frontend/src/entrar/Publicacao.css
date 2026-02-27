@@ -1,37 +1,83 @@
-.container-publicacoes {
-    width: 90%;
-    margin: 30px auto;
-    font-family: Arial, sans-serif;
+/* Fundo da página */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #5f2c82, #49a09d);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+/* Container principal */
+.container-publicacoes {
+    background-color: #f4f4f4;
+    width: 80%;
+    max-width: 900px;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Título */
 .container-publicacoes h2 {
     text-align: center;
     margin-bottom: 20px;
+    color: #4b2e83;
 }
 
+/* Container com rolagem */
 .tabela-container {
-    max-height: 400px; /* altura da área com rolagem */
+    max-height: 400px;
     overflow-y: auto;
-    border: 1px solid #4e4747;
-    border-radius: 8px;
+    border-radius: 15px;
 }
 
+/* Scroll personalizada */
+.tabela-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.tabela-container::-webkit-scrollbar-thumb {
+    background: #6a4bc4;
+    border-radius: 10px;
+}
+
+/* Tabela */
 table {
     width: 100%;
     border-collapse: collapse;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
 }
 
+/* Cabeçalho */
 thead {
-    background-color: #2c3e50;
+    background: linear-gradient(135deg, #6a4bc4, #8e6be8);
     color: white;
-    position: sticky;
-    top: 0;
 }
 
-th, td {
+th {
     padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #000000;
-    color:#000000
+    text-align: center;
 }
 
+/* Linhas */
+td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+/* Efeito hover */
+tbody tr:hover {
+    background-color: #f0ebff;
+    transition: 0.3s;
+}
+
+/* Última linha sem borda */
+tbody tr:last-child td {
+    border-bottom: none;
+}

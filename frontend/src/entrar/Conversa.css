@@ -1,120 +1,226 @@
+/* Container principal */
 .conversas-container {
     display: flex;
-    height: 90vh;
-    padding: 20px;
-    gap: 20px;
-    font-family: Arial, sans-serif;
+    height: 100vh;
+    background: linear-gradient(135deg, #5f2c82, #49a09d);
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-/* LISTA DE CONVERSAS */
+/* ============================= */
+/* LISTA DE CONVERSAS (LADO ESQ) */
+/* ============================= */
+
 .lista-conversas {
-    width: 35%;
-    border: 1px solid #ddd;
-    border-radius: 10px;
+    width: 280px;
+    background: #ffffff;
     padding: 15px;
-    overflow-y: auto; /* 🔥 rolagem aqui */
-    background-color: #f9f9f9;
+    overflow-y: auto;
+    border-right: 1px solid #ddd;
 }
 
 .lista-conversas h2 {
-    margin-top: 0;
+    margin-bottom: 15px;
+    text-align: center;
 }
 
 .conversa-item {
-    cursor: pointer;
-    margin-bottom: 10px;
-    padding: 12px;
+    background: #f5f5f5;
+    padding: 10px;
     border-radius: 8px;
-    border: 1px solid #ddd;
-    background-color: white;
-    transition: 0.2s;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: 0.2s ease;
 }
 
 .conversa-item:hover {
-    background-color: #ececec;
+    background: #e3e3e3;
 }
 
-.conversa-item strong {
-    display: block;
-    margin-bottom: 5px;
-}
+/* ============================= */
+/* AREA DE MENSAGEM (LADO DIR) */
+/* ============================= */
 
-/* ÁREA DA MENSAGEM */
 .area-mensagem {
-    width: 65%;
+    flex: 1;
     display: flex;
     flex-direction: column;
-    border: 1px solid #ddd;
-    border-radius: 10px;
+    background: #fafafa;
     padding: 15px;
-}
-
-.area-mensagem h3 {
-    margin-top: 0;
-}
-
-.mensagem-input {
-    margin-top: auto;
-    display: flex;
-    flex-direction: column;
-}
-
-.mensagem-input textarea {
-    resize: none;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-}
-
-.mensagem-input button {
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.mensagem-input button:hover {
-    background-color: #45a049;
-}
-
-/* ÁREA DA MENSAGEM */
-.area-mensagem {
-    width: 65%;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 15px;
-    height: 100%; /* 🔥 importante */
 }
 
 /* Lista de mensagens com rolagem */
 .mensagens-lista {
-    flex: 1;                 /* ocupa todo espaço disponível */
-    overflow-y: auto;        /* 🔥 rolagem vertical */
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
     margin-bottom: 10px;
-    padding-right: 5px;
 }
 
-/* Estilo individual da mensagem */
-.mensagem-item {
+/* Mensagem individual */
+.mensagens-lista div {
+    background: white;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.mensagens-lista strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.mensagens-lista small {
+    color: gray;
+    font-size: 12px;
+}
+
+/* ============================= */
+/* INPUT DE MENSAGEM */
+/* ============================= */
+
+.mensagem-input {
+    display: flex;
+    gap: 10px;
+}
+
+.mensagem-input textarea {
+    flex: 1;
+    resize: none;
+    border-radius: 8px;
     border: 1px solid #ccc;
     padding: 8px;
-    margin-bottom: 8px;
-    border-radius: 8px;
-    background-color: #f5f5f5;
+    font-size: 14px;
 }
 
-/* Scroll bonito */
+.mensagem-input button {
+    background: #5f2c82;
+    color: white;
+    border: none;
+    padding: 0 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.mensagem-input button:hover {
+    background: #4a2166;
+}
+.mensagem-item {
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.mensagem-item:hover {
+    background: #f0f0f0;
+}
+
+.mensagem-item.ativa {
+    border: 2px solid #5f2c82;
+}
+
+.acoes-mensagem {
+    margin-top: 5px;
+    display: flex;
+    gap: 5px;
+}
+
+.acoes-mensagem button {
+    padding: 4px 8px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+/* ============================= */
+/* CONVERSA SELECIONADA */
+/* ============================= */
+
+.conversa-item.ativa {
+    background: #5f2c82;
+    color: white;
+}
+
+/* ============================= */
+/* SCROLL PERSONALIZADO */
+/* ============================= */
+
+.lista-conversas::-webkit-scrollbar,
 .mensagens-lista::-webkit-scrollbar {
     width: 6px;
 }
 
+.lista-conversas::-webkit-scrollbar-thumb,
 .mensagens-lista::-webkit-scrollbar-thumb {
-    background-color: #ccc;
+    background: #bbb;
     border-radius: 10px;
+}
+
+.lista-conversas::-webkit-scrollbar-thumb:hover,
+.mensagens-lista::-webkit-scrollbar-thumb:hover {
+    background: #888;
+}
+
+/* ============================= */
+/* MENSAGENS (ESTILO CHAT) */
+/* ============================= */
+
+.mensagem-item {
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+/* Mensagem recebida (esquerda) */
+.mensagem-item {
+    background: white;
+    align-self: flex-start;
+}
+
+/* Mensagem enviada (direita) */
+/* IMPORTANTE: você pode usar condição no React depois */
+.mensagem-enviada {
+    background: #5f2c82;
+    color: white;
+    align-self: flex-end;
+}
+
+/* Data da mensagem */
+.mensagem-item small {
+    display: block;
+    margin-top: 5px;
+    font-size: 11px;
+    opacity: 0.7;
+}
+
+/* ============================= */
+/* BOTÕES DE AÇÃO */
+/* ============================= */
+
+.acoes-mensagem button {
+    background: #e74c3c;
+    color: white;
+    font-weight: bold;
+    transition: 0.2s ease;
+}
+
+.acoes-mensagem button:hover {
+    background: #c0392b;
+}
+
+/* ============================= */
+/* BOTÃO ENVIAR */
+/* ============================= */
+
+.mensagem-input button {
+    font-weight: bold;
+    min-width: 90px;
+}
+
+.mensagem-input button:active {
+    transform: scale(0.97);
 }
