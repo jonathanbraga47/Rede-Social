@@ -360,67 +360,45 @@ INSERT INTO arquivo_midia (id_publicacao, url_midia) VALUES
                                                          (100, 'https://picsum.photos/id/577/800/600');
 
 
--- 1️⃣ Criando 80 novas interações (4 curtidas para cada uma das 20 publicações)
-
 INSERT INTO interacao (id_perfil, id_publicacao) VALUES
--- Publicação 1
 (3,1),(7,1),(9,1),(14,1),
 
--- Publicação 2
 (18,2),(21,2),(24,2),(28,2),
 
--- Publicação 3
 (31,3),(35,3),(39,3),(42,3),
 
--- Publicação 4
 (46,4),(49,4),(53,4),(57,4),
 
--- Publicação 5
 (60,5),(63,5),(66,5),(69,5),
 
--- Publicação 6
 (72,6),(75,6),(78,6),(81,6),
 
--- Publicação 7
 (84,7),(87,7),(90,7),(93,7),
 
--- Publicação 8
 (96,8),(99,8),(4,8),(8,8),
 
--- Publicação 9
 (12,9),(16,9),(20,9),(25,9),
 
--- Publicação 10
 (30,10),(36,10),(40,10),(44,10),
 
--- Publicação 11
 (50,11),(55,11),(59,11),(64,11),
 
--- Publicação 12
 (68,12),(73,12),(77,12),(83,12),
 
--- Publicação 13
 (88,13),(94,13),(3,13),(7,13),
 
--- Publicação 14
 (9,14),(14,14),(18,14),(21,14),
 
--- Publicação 15
 (24,15),(28,15),(31,15),(35,15),
 
--- Publicação 16
 (39,16),(42,16),(46,16),(49,16),
 
--- Publicação 17
 (53,17),(57,17),(60,17),(63,17),
 
--- Publicação 18
 (66,18),(69,18),(72,18),(75,18),
 
--- Publicação 19
 (78,19),(81,19),(84,19),(87,19),
 
--- Publicação 20
 (90,20),(93,20),(96,20),(99,20);
 
 INSERT INTO interacao_curtida (id_interacao)
@@ -429,7 +407,6 @@ FROM interacao
 ORDER BY id_interacao DESC
     LIMIT 80;
 
--- 1️⃣ Criando 50 novas interações (comentários)
 INSERT INTO interacao (id_perfil, id_publicacao) VALUES
                                                      (2,11),(5,34),(8,77),(11,23),(15,90),
                                                      (19,4),(22,56),(26,88),(29,17),(33,61),
@@ -442,7 +419,6 @@ INSERT INTO interacao (id_perfil, id_publicacao) VALUES
                                                      (32,14),(36,92),(40,7),(43,68),(47,24),
                                                      (51,75),(54,41),(59,82),(63,16),(69,93);
 
--- 2️⃣ Convertendo essas interações em comentários
 INSERT INTO interacao_comentario (id_interacao, texto)
 SELECT
     id_interacao,

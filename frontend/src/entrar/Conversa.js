@@ -48,7 +48,7 @@ export default function Conversas() {
         .catch(err => console.error("Erro ao enviar mensagem:", err));
     }
     function carregarMensagens(id) {
-        fetch(`http://localhost:8080/mensagem/getAll/${id}`)
+        fetch(`http://localhost:8080/mensagem/getAll/${idConversaSelecionada}`)
             .then(res => res.json())
             .then(data => {
                 setMensagens(data);

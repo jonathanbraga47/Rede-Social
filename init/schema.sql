@@ -1,4 +1,3 @@
--- 1. Tabelas Base (Sem Dependências)
 CREATE TABLE IF NOT EXISTS perfil (
                                       id_perfil INT AUTO_INCREMENT PRIMARY KEY,
                                       email VARCHAR(255) NOT NULL UNIQUE,
@@ -10,7 +9,6 @@ CREATE TABLE IF NOT EXISTS conversa (
                                         id_conversa INT AUTO_INCREMENT PRIMARY KEY
 );
 
--- 2. Tabelas de Relacionamento e Entidades Dependentes
 CREATE TABLE IF NOT EXISTS segue (
                                      user_seguidor INT,
                                      user_seguido INT,
@@ -73,7 +71,6 @@ CREATE TABLE IF NOT EXISTS arquivo_midia (
     FOREIGN KEY (id_publicacao) REFERENCES publicacao(id_publicacao) ON DELETE CASCADE
     );
 
--- 3. Views (Dependem de todas as tabelas acima estarem criadas)
 CREATE OR REPLACE VIEW view_feed AS
 SELECT
     pe.nome,
