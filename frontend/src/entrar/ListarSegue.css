@@ -15,7 +15,7 @@ body {
     padding: 40px;
     border-radius: 25px;
     width: 400px;
-    height: 500px;          /* altura fixa */
+    height: 400px;          /* altura fixa */
     overflow-y: auto;       /* ativa scroll vertical */
     overflow-x: hidden;     /* evita scroll lateral feio */
     text-align: center;
