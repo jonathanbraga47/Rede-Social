@@ -8,7 +8,6 @@ export default function CriarPerfil() {
         email: "",
         nome: "",
         senha: "",
-        tipoPrivacidade: null
     });
 
     const [msg, setMsg] = useState("");
@@ -48,7 +47,6 @@ export default function CriarPerfil() {
                     email: "",
                     nome: "",
                     senha: "",
-                    tipoPrivacidade: null
                 });
                 setTimeout(() => {
                     navigate("/");
@@ -88,16 +86,6 @@ export default function CriarPerfil() {
                     placeholder="Senha"
                     value={formData.senha}
                     onChange={handleChange}
-                />
-
-                <input
-                    type="number"
-                    name="tipoPrivacidade"
-                    placeholder="0 = fechado | 1 = aberto"
-                    value={formData.tipoPrivacidade}
-                    onChange={handleChange}
-                    min="0"
-                    max="1"
                 />
 
                 <button type="submit">Salvar</button>

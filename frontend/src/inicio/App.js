@@ -29,6 +29,7 @@ function App() {
       <Route path="/conversas/:idPerfil" element={<Conversas />} />
       <Route path="/seguir/:id" element={<SeguirFormulario />} />
       <Route path="/publicacao/create/:perfilId" element={<Criar_Pub />} />
+      <Route path="/publicacao/create/:perfilId" element={<Criar_Pub />} />
     </Routes>
     </BrowserRouter>
   );
