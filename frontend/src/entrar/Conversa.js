@@ -23,8 +23,13 @@ export default function Conversas() {
 
     function selecionarConversa(id) {
         setIdConversaSelecionada(id);
-        carregarMensagens(id);
     }
+
+    useEffect(() => {
+        if (idConversaSelecionada) {
+            carregarMensagens(idConversaSelecionada);
+        }
+    }, [idConversaSelecionada]);
 
     function enviarMensagem() {
         if (!novaMensagem || !idConversaSelecionada) return;
@@ -48,11 +53,9 @@ export default function Conversas() {
         .catch(err => console.error("Erro ao enviar mensagem:", err));
     }
     function carregarMensagens(id) {
-        fetch(`http://localhost:8080/mensagem/getAll/${idConversaSelecionada}`)
+        fetch(`http://localhost:8080/mensagem/getAll/${id}`)
             .then(res => res.json())
-            .then(data => {
-                setMensagens(data);
-            })
+            .then(data => setMensagens(data))
             .catch(err => console.error("Erro ao buscar mensagens:", err));
     }
     function excluirMensagem(idMensagem) {
@@ -82,6 +85,13 @@ export default function Conversas() {
                     className="conversa-item"
                 >
                     <strong>Conversa #{conversa.idConversa}</strong>
+                    
+                    Participantes:
+                        {conversa.participantes.map(p => (
+                            <div key={p.idPerfil}>
+                                {p.perfilNome}
+                            </div>
+                        ))}
                 </div>
             ))}
         </div>
