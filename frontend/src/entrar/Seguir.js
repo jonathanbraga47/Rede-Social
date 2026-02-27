@@ -58,7 +58,7 @@ export default function SeguirFormulario() {
                 <button type="submit">Seguir</button>
             </form>
 
-            {mensagem && <p style={{color: "green"}}>{mensagem}</p>}
+            {mensagem && <p style={{color: "white"}}>{mensagem}</p>}
             {erro && <p style={{color: "red"}}>{erro}</p>}
         </div>
     );
