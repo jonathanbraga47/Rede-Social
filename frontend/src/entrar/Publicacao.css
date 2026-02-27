@@ -56,7 +56,7 @@ table {
 /* Cabeçalho */
 thead {
     background: linear-gradient(135deg, #6a4bc4, #8e6be8);
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 th {
