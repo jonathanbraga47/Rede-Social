@@ -11,7 +11,11 @@ import java.time.LocalDateTime;
 @Immutable
 @Table(name = "view_feed")
 public class ViewFeed {
+
     @Id
+    @Column(name = "id_publicacao")
+    private Long idPublicacao;
+
     @Column(name = "nome")
     private String nome;
 
@@ -29,6 +33,9 @@ public class ViewFeed {
 
     @Column(name = "data_hora")
     private LocalDateTime dataHora;
+
+
+    public Long getIdPublicacao() {return idPublicacao;}
 
     public String getNome() {return nome;}
     public String getLegenda() {return legenda;}

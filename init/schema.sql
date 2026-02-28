@@ -73,6 +73,7 @@ CREATE TABLE IF NOT EXISTS arquivo_midia (
 
 CREATE OR REPLACE VIEW view_feed AS
 SELECT
+    pu.id_publicacao,
     pe.nome,
     pu.legenda,
     pu.data_hora,
@@ -109,6 +110,7 @@ ORDER BY total_interacoes DESC;
 
 CREATE OR REPLACE VIEW view_historico_mensagens AS
 SELECT
+    m.id_mensagem,
     c.id_conversa,
     pe.nome,
     m.conteudo,
