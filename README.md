@@ -48,7 +48,7 @@ Os esquemas feitos para representar o Bando de Dados encontram-se abaixo, conten
 
 ## 3. Dicionário de Dados
 
- O dicionário de dados encontra-se no arquivo pdf abaixo, contendo descrição das tabelas, atributos, tipos de dados e restrições.[Acessar Dicionário de Dados](./docs/dicionario_dados1.pdf)
+ O dicionário de dados encontra-se no arquivo pdf abaixo, contendo descrição das tabelas, atributos, tipos de dados, restrições e views.[Acessar Dicionário de Dados](./docs/dicionario_dados1.pdf)
 
 ## 4. Povoamento do Banco de Dados
 
