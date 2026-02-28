@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import "./Criar_Pub.css";
 
 export default function Criar_Pub() {
   const { perfilId } = useParams();
@@ -77,45 +78,35 @@ export default function Criar_Pub() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Criar Publicação</h2>
+  <div className="create-container">
+    <div className="create-card">
+      <h2 className="create-title">Criar Publicação</h2>
 
-      {/* ✅ Mensagem */}
       {mensagem && (
-        <p
-          style={{
-            color: tipoMensagem === "sucesso" ? "white" : "red",
-            fontWeight: "bold"
-          }}
-        >
+        <div className={`mensagem ${tipoMensagem}`}>
           {mensagem}
-        </p>
+        </div>
       )}
 
-      <form onSubmit={criarPublicacao}>
+      <form onSubmit={criarPublicacao} className="create-form">
         <textarea
-          placeholder="Legenda"
+          placeholder="Digite sua legenda..."
           value={legenda}
           onChange={(e) => setLegenda(e.target.value)}
-          style={{ width: "100%", height: "100px" }}
         />
-
-        <br /><br />
 
         <input
           type="text"
-          placeholder="URL da mídia"
+          placeholder="ID da imagem (ex: 100)"
           value={urlMidia}
           onChange={(e) => setUrlMidia(e.target.value)}
-          style={{ width: "100%" }}
         />
-
-        <br /><br />
 
         <button type="submit" disabled={loading}>
           {loading ? "Publicando..." : "Publicar"}
         </button>
       </form>
     </div>
-  );
+  </div>
+);
 }

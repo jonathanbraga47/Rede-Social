@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-
 import "./ListarSegue.css";
+import "./Seguir.css";
 
 export default function SeguirFormulario() {
     const { id } = useParams();
@@ -58,8 +58,8 @@ export default function SeguirFormulario() {
                 <button type="submit">Seguir</button>
             </form>
 
-            {mensagem && <p style={{color: "white"}}>{mensagem}</p>}
-            {erro && <p style={{color: "red"}}>{erro}</p>}
+            {mensagem && <p className="mensagem-sucesso">{mensagem}</p>}
+{erro && <p className="mensagem-erro">{erro}</p>}
         </div>
     );
 }

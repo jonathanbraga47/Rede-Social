@@ -2,93 +2,83 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     background: linear-gradient(135deg, #5f2c82, #49a09d);
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-/* Container principal*/
+/* Container principal */
 .container-publicacoes {
-    background-color: #f4f4f4;
-    width: 1200px;      /* largura fixa */
-    height: 400px;      /* altura fixa */
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-    overflow: hidden;   /* impede vazar conteúdo */
-    display: flex;
-    flex-direction: column;
-}
-
-/* Área da tabela com rolagem */
-.tabela-container {
-    flex: 1;            /* ocupa o espaço restante */
-    overflow-y: auto;   /* scroll vertical */
-    overflow-x: auto;   /* scroll horizontal se precisar */
-    border-radius: 15px;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 /* Título */
 .container-publicacoes h2 {
-    text-align: center;
-    margin-bottom: 25px;
-    color: #4b2e83;
+    margin-bottom: 20px;
+    color: #333;
 }
 
-/* Container com rolagem */
-.tabela-container {
-    max-height: 500px;   /* aumentei também pra combinar */
-    overflow-y: auto;
-    border-radius: 15px;
-}
-
-/* Scroll personalizada */
-.tabela-container::-webkit-scrollbar {
-    width: 8px;
-}
-
-.tabela-container::-webkit-scrollbar-thumb {
-    background: #6a4bc4;
-    border-radius: 10px;
-}
-
-/* Tabela */
+/* Remove aparência de tabela */
 table {
     width: 100%;
-    border-collapse: collapse;
-    background: white;
-    border-radius: 15px;
-    overflow: hidden;
+    border-collapse: separate;
+    border-spacing: 0;
 }
 
-/* Cabeçalho */
+/* Esconde cabeçalho */
 thead {
-    background: linear-gradient(135deg, #6a4bc4, #8e6be8);
-    color: rgb(0, 0, 0);
+    display: none;
 }
 
-th {
-    padding: 14px;
-    text-align: center;
+/* Tbody vira GRID igual ao feed */
+tbody {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
 }
 
-/* Linhas */
-td {
-    padding: 12px;
-    text-align: center;
-    border-bottom: 1px solid #eee;
+/* Cada linha vira CARD */
+tbody tr {
+    display: block;
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
 }
 
-/* Hover */
 tbody tr:hover {
-    background-color: #f0ebff;
-    transition: 0.3s;
+    transform: translateY(-4px);
 }
 
-/* Última linha */
-tbody tr:last-child td {
-    border-bottom: none;
+/* Cada célula vira bloco */
+td {
+    display: block;
+    border: none;
+    padding: 0;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+/* Primeira célula (ex: autor) */
+td:first-child {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+/* Se houver imagem na tabela */
+td img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* Última célula (curtidas/data/etc) */
+td:last-child {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #555;
 }

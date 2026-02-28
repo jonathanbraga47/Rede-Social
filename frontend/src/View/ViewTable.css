@@ -1,58 +1,91 @@
 .views-container {
-  padding: 40px;
-  font-family: Arial, Helvetica, sans-serif;
+  padding: 60px 40px;
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  color: #2c2c2c;
 }
 
 .views-container h2 {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  font-size: 26px;
+  font-weight: 600;
+  color: #ffffff;
 }
 
+/* TABELA */
 .views-table {
   width: 100%;
   border-collapse: collapse;
   background: #ffffff;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
-.views-table th,
-.views-table td {
-  padding: 12px;
-  border: 1px solid #ddd;
-  text-align: center;
-}
-
+/* CABEÇALHO */
 .views-table th {
-  background-color: #2c3e50;
+  padding: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 14px;
+  background: linear-gradient(135deg, #4e73df, #6f42c1);
   color: white;
+  border: none;
 }
 
+/* CÉLULAS */
+.views-table td {
+  padding: 16px;
+  font-size: 15px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* Efeito hover nas linhas */
+.views-table tr:hover {
+  background-color: #f4f6ff;
+  transition: 0.2s ease-in-out;
+}
+
+/* BOTÕES */
 .btn-view {
-  background-color: #3498db;
+  background: linear-gradient(135deg, #4e73df, #6f42c1);
   color: white;
-  padding: 6px 12px;
+  padding: 8px 16px;
   text-decoration: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-block;
 }
 
 .btn-view:hover {
-  background-color: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(111, 66, 193, 0.3);
 }
 
+/* HISTÓRICO */
 .historico-box {
   display: flex;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .historico-box input {
-  width: 70px;
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  width: 80px;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #dcdcdc;
+  outline: none;
+  transition: 0.2s;
 }
 
+.historico-box input:focus {
+  border-color: #6f42c1;
+  box-shadow: 0 0 0 2px rgba(111, 66, 193, 0.2);
+}
+
+/* BOTÃO DESATIVADO */
 .disabled {
   pointer-events: none;
-  background-color: gray;
+  background: #b0b0b0 !important;
 }

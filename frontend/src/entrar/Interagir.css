@@ -1,0 +1,85 @@
+/* Fundo da página */
+.interagir-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #4338ca, #7c3aed, #a855f7);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Card */
+.interagir-card {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.interagir-card:hover {
+  transform: translateY(-5px);
+}
+
+.interagir-card h2 {
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+/* Form */
+.interagir-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Inputs */
+.interagir-input,
+.interagir-textarea,
+.interagir-select {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.interagir-input:focus,
+.interagir-textarea:focus,
+.interagir-select:focus {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+  outline: none;
+}
+
+/* Textarea */
+.interagir-textarea {
+  min-height: 90px;
+  resize: none;
+}
+
+/* Botão */
+.interagir-button {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.interagir-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3);
+}
+
+/* Mensagem */
+.interagir-mensagem {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: 500;
+}

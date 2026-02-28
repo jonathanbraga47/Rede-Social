@@ -1,0 +1,146 @@
+/* ===== RESET OPCIONAL ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== FUNDO ROXO ===== */
+body {
+  min-height: 100vh;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  background: linear-gradient(135deg, #5f4bcc 0%, #7d5fff 50%, #6a4df0 100%);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===== CONTAINER ===== */
+.create-container {
+  width: 100%;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===== CARD GLASS ===== */
+.create-card {
+  width: 100%;
+  max-width: 520px;
+
+  padding: 50px 40px;
+
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+}
+
+/* ===== TÍTULO ===== */
+.create-title {
+  font-size: 30px;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 35px;
+}
+
+/* ===== FORM ===== */
+.create-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* ===== INPUTS GLASS ===== */
+.create-form textarea,
+.create-form input {
+  width: 100%;
+  padding: 16px;
+
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  font-size: 15px;
+  color: white;
+
+  transition: 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+/* Altura do textarea */
+.create-form textarea {
+  min-height: 120px;
+  resize: none;
+}
+
+/* Placeholder */
+.create-form textarea::placeholder,
+.create-form input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Foco elegante */
+.create-form textarea:focus,
+.create-form input:focus {
+  outline: none;
+  border-color: white;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
+}
+
+/* ===== BOTÃO ===== */
+.create-form button {
+  padding: 16px;
+  border-radius: 16px;
+  border: none;
+
+  background: linear-gradient(90deg, #7d5fff, #5f4bcc);
+  color: white;
+
+  font-size: 17px;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition: 0.3s ease;
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* Hover */
+.create-form button:hover {
+  transform: translateY(-4px);
+}
+
+/* Disabled */
+.create-form button:disabled {
+  background: rgba(255, 255, 255, 0.2);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ===== MENSAGENS ===== */
+.mensagem {
+  padding: 14px 18px;
+  border-radius: 14px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Sucesso */
+.mensagem.sucesso {
+  background: rgba(40, 167, 69, 0.9);
+  color: white;
+}
+
+/* Erro */
+.mensagem.erro {
+  background: rgba(255, 77, 77, 0.9);
+  color: white;
+}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./Engajamento.css"
+import "./ViewFeed.css"
 
 export default function Engajamento() {
 
@@ -34,41 +34,35 @@ export default function Engajamento() {
     }
 
     return (
-        <div className="engajamento-page">
-            <div className="engajamento-container">
+  <div className="feed-container">
+    <h2>Mais Engajadas</h2>
 
-                <div className="engajamento-header">
-                    <h2 className="engajamento-title">Mais Engajadas</h2>
-                </div>
+    {engajamentos.length === 0 && (
+      <p>Nenhuma publicação encontrada.</p>
+    )}
 
-                <div className="engajamento-table-wrapper">
-                    <table className="engajamento-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Autor</th>
-                                <th>Legenda</th>
-                                <th>Data</th>
-                                <th>Interações</th>
-                                <th>Url Mídia</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {engajamentos.map(item => (
-                                <tr key={item.idPublicacao}>
-                                    <td>{item.idPublicacao}</td>
-                                    <td>{item.autor}</td>
-                                    <td>{item.legenda}</td>
-                                    <td>{new Date(item.dataHora).toLocaleString()}</td>
-                                    <td>{item.interacoes}</td>
-                                    <td>{item.urlMidia}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+    <div className="feed-grid">
+      {engajamentos.map((item, index) => (
+        <div key={index} className="feed-card">
+          <h3>{item.autor}</h3>
 
-            </div>
+          <p className="legenda">{item.legenda}</p>
+
+          {item.urlMidia && (
+            <img
+              src={item.urlMidia}
+              alt="midia"
+              className="feed-image"
+            />
+          )}
+
+          <div className="feed-info">
+            <span>❤️ {item.interacoes}</span>
+            <span>📅 {new Date(item.dataHora).toLocaleString()}</span>
+          </div>
         </div>
-    );
+      ))}
+    </div>
+  </div>
+);
 }
