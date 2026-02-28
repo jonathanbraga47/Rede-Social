@@ -26,6 +26,8 @@ public class ArquivoMidia {
         this.urlMidia = urlMidia;
     }
 
+
+
     public Long getIdArquivo() {return idArquivo;}
     public void setIdArquivo(Long idArquivo) {this.idArquivo = idArquivo;}
     @JsonIgnore

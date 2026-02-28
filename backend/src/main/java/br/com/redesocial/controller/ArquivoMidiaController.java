@@ -21,8 +21,8 @@ public class ArquivoMidiaController {
 
         ArquivoMidiaDTO resposta = new ArquivoMidiaDTO();
         resposta.setIdArquivo(arquivoMidia.getIdArquivo());
-        resposta.setTipoMidia(arquivoMidia.getTipoMidia());
         resposta.setIdPublicacao(arquivoMidia.getIdPublicacao());
+        resposta.setUrlMidia(arquivoMidia.getUrlMidia());
 
         return ResponseEntity.ok(resposta);
     }
