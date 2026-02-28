@@ -72,7 +72,7 @@ docker compose down -v
 docker compose up --build
 ```
 
-## * Observação
+## ° Observação
 
 Para fins apenas de exemplificação, os arquivos mídia(fotos) estão sendo gerados automaticamente pelo sistema. De forma que ao criar uma publicação e optar por inserir um arquivo mídia, é solicitado a inserção de um número(id) escolhido de forma livre pelo usuário, que esteja entre 1 e 1.000, que gera automaticamente uma imagem para aquela publicação.
 
