@@ -51,18 +51,18 @@ body {
 }
 
 /* Tabela Ampliada */
-table {
+.table-card table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 18px; /* Texto dos dados maior */
+  font-size: 18px;
 }
 
-thead {
+.table-card thead {
   background-color: #7d5fff;
   color: white;
 }
 
-th {
+.table-card th {
   padding: 20px;
   text-align: left;
   text-transform: uppercase;
@@ -71,14 +71,13 @@ th {
   font-weight: 700;
 }
 
-td {
-  padding: 22px 20px; /* Células mais altas */
+.table-card td {
+  padding: 22px 20px;
   border-bottom: 1px solid #f0f0f0;
   color: #333;
 }
 
-/* Efeitos de linha */
-tbody tr:hover {
+.table-card tbody tr:hover {
   background-color: #f7f6ff;
   transition: 0.2s ease;
 }

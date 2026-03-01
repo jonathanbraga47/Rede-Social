@@ -1,0 +1,234 @@
+/* ── KPI Cards ─────────────────────────────────────── */
+.rel-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 24px;
+    margin-bottom: 32px;
+}
+
+.rel-kpi-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(125, 95, 255, 0.10);
+    padding: 24px 24px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-top: 4px solid #7d5fff;
+}
+
+.rel-kpi-label {
+    color: #888;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+}
+
+.rel-kpi-value {
+    color: #3a2060;
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.rel-kpi-sub {
+    color: #7d5fff;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* ── Tabs ───────────────────────────────────────────── */
+.rel-tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+}
+
+.rel-tab-btn {
+    padding: 12px 26px;
+    border-radius: 12px;
+    border: 2px solid #e0d9ff;
+    background: white;
+    color: #7d5fff;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.rel-tab-btn:hover {
+    background: #f7f6ff;
+}
+
+.rel-tab-active {
+    background: #7d5fff;
+    color: white;
+    border-color: #7d5fff;
+    box-shadow: 0 4px 15px rgba(125, 95, 255, 0.35);
+}
+
+/* ── Conteúdo ───────────────────────────────────────── */
+.rel-content {
+    margin-top: 8px;
+}
+
+.rel-section-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #3a2060;
+    margin: 28px 0 16px;
+    border-left: 5px solid #7d5fff;
+    padding-left: 14px;
+    letter-spacing: -0.3px;
+}
+
+/* ── Gráficos ───────────────────────────────────────── */
+.rel-chart-box {
+    background: #fafafa;
+    border: 1px solid #f0f0f0;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+.rel-chart-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 8px;
+}
+
+.rel-chart-label {
+    color: #999;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 12px;
+}
+
+/* ── Tooltip ────────────────────────────────────────── */
+.rel-tooltip {
+    background: white;
+    border: 1px solid #e5eaff;
+    border-radius: 12px;
+    padding: 10px 16px;
+    box-shadow: 0 4px 16px rgba(125, 95, 255, 0.15);
+}
+
+.rel-tooltip-label {
+    color: #7d5fff;
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.rel-tooltip-value {
+    color: #333;
+    font-size: 13px;
+}
+
+/* ── Tabela ─────────────────────────────────────────── */
+.rel-rank-top {
+    font-weight: 800;
+    color: #7d5fff;
+}
+
+.rel-rank-normal {
+    font-weight: 800;
+    color: #ccc;
+}
+
+.rel-score {
+    font-weight: 800;
+    color: #7d5fff;
+}
+
+.rel-muted {
+    color: #999;
+}
+
+/* ── Badge de status ────────────────────────────────── */
+.rel-badge {
+    border-radius: 8px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* ── Estados ────────────────────────────────────────── */
+.rel-loading {
+    color: #7d5fff;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    padding: 60px 0;
+}
+
+.rel-erro {
+    background: #fff0f0;
+    color: #cc0000;
+    border: 1px solid #ffcccc;
+    border-radius: 12px;
+    padding: 14px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+/* ── Responsivo ─────────────────────────────────────── */
+@media (max-width: 768px) {
+    .rel-chart-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .rel-kpi-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.rel-content table {
+    display: table !important;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.rel-content thead {
+    display: table-header-group !important;
+}
+
+.rel-content tbody {
+    display: table-row-group !important;
+}
+
+.rel-content tr {
+    display: table-row !important;
+}
+
+.rel-content th,
+.rel-content td {
+    display: table-cell !important;
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+    color: #333;
+}
+
+.rel-content thead th {
+    background: linear-gradient(135deg, #7d5fff, #5f4bcc);
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.table-card {
+    padding-top: 140px;
+}

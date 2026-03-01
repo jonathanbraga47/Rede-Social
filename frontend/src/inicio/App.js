@@ -16,31 +16,30 @@ import Interagir from '../entrar/Interagir';
 import ViewsTable from '../View/ViewTable';
 import ViewHistoricoMensagens from '../View/ViewHistMsg';
 import ViewFeed from '../View/ViewFeed';
-
+import Relatorios from '../entrar/Relatorios';
 function App() {
   return (
-    <BrowserRouter>
-    <Routes>
-      <Route path="/" element = {<KejomiTable/>}></Route>
-      <Route path= "/perfil/create" element = {<CriarPerfil/>}></Route>
-      <Route path="/viewEngajamento/engajamento" element={<Engajamento />} />
-      <Route path= "/perfil/update/:id" element = {<EditarPerfil/>}></Route>
-      <Route path= "/perfil/delete/:id" element = {<DeletarPerfil/>}></Route>
-      <Route path="/perfil/:id" element={<EntrarPerfil />} />
-      <Route path="/get/:id/publicacoes" element={<Publicacoes />} />
-      <Route path="/segue/seguidores/:id" element={<Seguidores />} />
-      <Route path="/segue/seguindo/:id" element={<Seguindo/>} />
-      <Route path="/conversas/:idPerfil" element={<Conversas />} />
-      <Route path="/seguir/:id" element={<SeguirFormulario />} />
-      <Route path="/publicacao/create/:perfilId" element={<Criar_Pub />} />
-      <Route path="/interagir/:id" element={<Interagir/>} />
-      <Route path="/views" element={<ViewsTable/>} />
-      <Route path="/viewEngajamento/engajamento" element={<ViewsTable/>} />
-      <Route path="/viewFeed/feed" element={<ViewFeed/>} />
-      <Route path="/historicoMensagem/historico/:id" element={<ViewHistoricoMensagens />} />
-
-    </Routes>
-    </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<KejomiTable/>} />
+          <Route path="/perfil/create" element={<CriarPerfil/>} />
+          <Route path="/viewEngajamento/engajamento" element={<Engajamento />} />
+          <Route path="/perfil/update/:id" element={<EditarPerfil/>} />
+          <Route path="/perfil/delete/:id" element={<DeletarPerfil/>} />
+          <Route path="/perfil/:id" element={<EntrarPerfil />} />
+          <Route path="/get/:id/publicacoes" element={<Publicacoes />} />
+          <Route path="/segue/seguidores/:id" element={<Seguidores />} />
+          <Route path="/segue/seguindo/:id" element={<Seguindo/>} />
+          <Route path="/conversas/:idPerfil" element={<Conversas />} />
+          <Route path="/seguir/:id" element={<SeguirFormulario />} />
+          <Route path="/publicacao/create/:perfilId" element={<Criar_Pub />} />
+          <Route path="/interagir/:id" element={<Interagir/>} />
+          <Route path="/views" element={<ViewsTable/>} />
+          <Route path="/viewFeed/feed" element={<ViewFeed/>} />
+          <Route path="/historicoMensagem/historico/:id" element={<ViewHistoricoMensagens />} />
+          <Route path="/relatorios" element={<Relatorios />} />  {/* NOVA ROTA */}
+        </Routes>
+      </BrowserRouter>
   );
 }
 

@@ -16,3 +16,7 @@ thead th {
     background-color: #fff;
     z-index: 1;
 }
+
+.engajamento {
+    flex: 1;
+}

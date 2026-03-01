@@ -25,13 +25,13 @@ public class ViewEngajamento {
     private String legenda;
 
     @Column(name = "total_interacoes")
-    private int interacoes;
+    private int totalInteracoes;
 
     public Long getIdPublicacao() {return idPublicacao;}
     public String getAutor() {return autor;}
     public String getUrlMidia() {return urlMidia;}
     public LocalDateTime getDataHora() {return dataHora;}
 
-    public int getInteracoes() {return interacoes;}
+    public int getTotalInteracoes() {return totalInteracoes;}
     public String getLegenda() {return legenda;}
 }

@@ -1,5 +1,5 @@
 .views-container {
-  padding: 60px 40px;
+  padding: 100px 40px 60px 40px; /* ← topo maior para não ficar atrás do header */
   font-family: 'Segoe UI', Roboto, Arial, sans-serif;
   color: #2c2c2c;
 }

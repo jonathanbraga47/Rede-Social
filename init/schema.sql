@@ -119,3 +119,107 @@ FROM mensagem m
          JOIN conversa c ON m.id_conversa = c.id_conversa
          JOIN perfil pe ON m.id_perfil = pe.id_perfil
 ORDER BY m.data_hora ASC;
+
+
+CREATE OR REPLACE VIEW view_ranking_usuarios AS
+SELECT
+    pe.id_perfil,
+    pe.nome,
+    pe.email,
+
+    COUNT(DISTINCT pu.id_publicacao) AS total_publicacoes,
+
+    COUNT(DISTINCT i.id_interacao) AS total_interacoes_feitas,
+
+    (SELECT COUNT(*)
+     FROM interacao i2
+              JOIN interacao_curtida ic ON i2.id_interacao = ic.id_interacao
+     WHERE i2.id_publicacao IN (
+         SELECT id_publicacao FROM publicacao WHERE id_perfil = pe.id_perfil
+     )) AS curtidas_recebidas,
+
+    (SELECT COUNT(*)
+     FROM interacao i3
+              JOIN interacao_comentario ico ON i3.id_interacao = ico.id_interacao
+     WHERE i3.id_publicacao IN (
+         SELECT id_publicacao FROM publicacao WHERE id_perfil = pe.id_perfil
+     )) AS comentarios_recebidos,
+
+    (SELECT COUNT(*)
+     FROM segue s
+     WHERE s.user_seguido = pe.id_perfil) AS total_seguidores,
+
+    (SELECT COUNT(*)
+     FROM segue s
+     WHERE s.user_seguidor = pe.id_perfil) AS total_seguindo,
+
+    (
+        COUNT(DISTINCT pu.id_publicacao) * 2 +
+        COUNT(DISTINCT i.id_interacao) * 1 +
+        (SELECT COUNT(*) FROM interacao i2 WHERE i2.id_publicacao IN (
+            SELECT id_publicacao FROM publicacao WHERE id_perfil = pe.id_perfil
+        )) * 3 +
+        (SELECT COUNT(*) FROM segue s WHERE s.user_seguido = pe.id_perfil) * 2
+        ) AS score_engajamento
+
+FROM perfil pe
+         LEFT JOIN publicacao pu ON pe.id_perfil = pu.id_perfil
+         LEFT JOIN interacao i ON pe.id_perfil = i.id_perfil
+GROUP BY pe.id_perfil, pe.nome, pe.email
+ORDER BY score_engajamento DESC;
+
+
+CREATE OR REPLACE VIEW view_perfis_inatividade AS
+SELECT
+    pe.id_perfil,
+    pe.nome,
+    pe.email,
+
+    (SELECT COUNT(*)
+     FROM publicacao pu
+     WHERE pu.id_perfil = pe.id_perfil) AS total_publicacoes,
+
+    (SELECT COUNT(*)
+     FROM interacao i
+     WHERE i.id_perfil = pe.id_perfil) AS total_interacoes,
+
+    (SELECT COUNT(*)
+     FROM segue s
+     WHERE s.user_seguidor = pe.id_perfil) AS total_seguindo,
+
+    (SELECT COUNT(*)
+     FROM segue s
+     WHERE s.user_seguido = pe.id_perfil) AS total_seguidores,
+
+    CASE
+        WHEN (SELECT COUNT(*) FROM publicacao WHERE id_perfil = pe.id_perfil) = 0
+            AND (SELECT COUNT(*) FROM interacao WHERE id_perfil = pe.id_perfil) = 0
+            AND (SELECT COUNT(*) FROM segue WHERE user_seguidor = pe.id_perfil) = 0
+            THEN 'Totalmente Inativo'
+
+        WHEN (SELECT COUNT(*) FROM publicacao WHERE id_perfil = pe.id_perfil) = 0
+            AND (SELECT COUNT(*) FROM interacao WHERE id_perfil = pe.id_perfil) = 0
+            THEN 'Nunca Publicou nem Interagiu'
+
+        WHEN (SELECT COUNT(*) FROM publicacao WHERE id_perfil = pe.id_perfil) = 0
+            THEN 'Nunca Publicou'
+
+        WHEN (SELECT COUNT(*) FROM interacao WHERE id_perfil = pe.id_perfil) = 0
+            THEN 'Nunca Interagiu'
+
+        WHEN (SELECT COUNT(*) FROM segue WHERE user_seguidor = pe.id_perfil) = 0
+            THEN 'Nao Segue Ninguem'
+
+        ELSE 'Ativo'
+        END AS status_atividade
+
+FROM perfil pe
+HAVING status_atividade <> 'Ativo'
+ORDER BY
+    CASE status_atividade
+        WHEN 'Totalmente Inativo' THEN 1
+        WHEN 'Nunca Publicou nem Interagiu' THEN 2
+        WHEN 'Nunca Publicou' THEN 3
+        WHEN 'Nunca Interagiu' THEN 4
+        WHEN 'Nao Segue Ninguem' THEN 5
+        END;
