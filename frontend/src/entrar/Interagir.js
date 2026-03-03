@@ -24,22 +24,32 @@ export default function Interagir() {
     }
   }
 
+  
   function curtir() {
     fetch("http://localhost:8080/curtida/create", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        publicacaoId: idPublicacao,
-        usuarioId: id
+        usuarioId: id,
+        publicacaoId: idPublicacao
       })
     })
-      .then(() => setMensagem("❤️ Publicação curtida com sucesso!"))
-      .catch(() => setMensagem("❌ Erro ao curtir."));
+    .then(res => {
+      if (!res.ok) {
+        throw new Error("Erro no servidor");
+      }
+      return res.text();
+    })
+    .then(() => setMensagem("❤️ Publicação curtida com sucesso!"))
+    .catch(err => {
+      console.error(err);
+      setMensagem("❌ Erro ao curtir.");
+    });
   }
 
   function comentar() {
     if (!conteudoComentario.trim()) {
-      setMensagem("Digite um comentário.");
+      setMensagem("Digite um comentário!");
       return;
     }
 
@@ -52,11 +62,18 @@ export default function Interagir() {
         conteudo: conteudoComentario
       })
     })
-      .then(() => {
-        setMensagem("💬 Comentário enviado com sucesso!");
-        setConteudoComentario("");
-      })
-      .catch(() => setMensagem("❌ Erro ao comentar."));
+      .then(res => {
+      if (!res.ok) {
+        throw new Error("Erro no servidor");
+      }
+      return res.text();
+    })
+    .then(() => setMensagem("💬Comentário enviado com sucesso!"))
+    .catch(err => {
+      console.error(err);
+      setMensagem("❌ Erro ao comentar.");
+    });
+      
   }
 
   return (

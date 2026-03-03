@@ -119,3 +119,25 @@ FROM mensagem m
          JOIN conversa c ON m.id_conversa = c.id_conversa
          JOIN perfil pe ON m.id_perfil = pe.id_perfil
 ORDER BY m.data_hora ASC;
+
+
+DELIMITER $$
+
+CREATE TRIGGER trg_curtida_unica
+BEFORE INSERT ON interacao
+FOR EACH ROW
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM interacao i
+        JOIN interacao_curtida ic 
+            ON i.id_interacao = ic.id_interacao
+        WHERE i.id_perfil = NEW.id_perfil
+        AND i.id_publicacao = NEW.id_publicacao
+    ) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Você já curtiu essa publicacão.';
+    END IF;
+END$$
+
+DELIMITER ;
