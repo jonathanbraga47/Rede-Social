@@ -17,6 +17,7 @@ import ViewsTable from '../View/ViewTable';
 import ViewHistoricoMensagens from '../View/ViewHistMsg';
 import ViewFeed from '../View/ViewFeed';
 import Relatorios from './Relatorios';
+import Interacoes from '../entrar/Interacoes';
 function App() {
   return (
       <BrowserRouter>
@@ -38,6 +39,8 @@ function App() {
           <Route path="/viewFeed/feed" element={<ViewFeed/>} />
           <Route path="/historicoMensagem/historico/:id" element={<ViewHistoricoMensagens />} />
           <Route path="/relatorios" element={<Relatorios />} />  {/* NOVA ROTA */}
+          <Route path="/relatorios" element={<Interacoes />} />  {/* NOVA ROTA */}
+          
         </Routes>
       </BrowserRouter>
   );

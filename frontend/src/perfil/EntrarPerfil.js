@@ -93,6 +93,10 @@ export default function EntrarPerfil() {
                 <Link to={`/interagir/${id}`}>
                     Interagir
                 </Link>{" "}
+                <Link to={`/interações/${id}`}>
+                    Interações
+                </Link>{" "}
+                
             </div>
         </div>
     );

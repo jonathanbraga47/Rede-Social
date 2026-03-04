@@ -7,7 +7,6 @@ import br.com.redesocial.service.InteracaoComentarioService;
 import br.com.redesocial.service.PerfilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import br.com.redesocial.repository.PublicacaoRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -47,6 +46,9 @@ public class InteracaoComentarioService {
         return interacaoComentarioRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Comentário não encontrado"));
     }
+    public List<InteracaoComentario> getByPerfil(Long idPerfil) {
+    return interacaoComentarioRepository.findByPerfilId(idPerfil);
+}
 
     public void deleteInteracaoComentario(Long id){
         interacaoComentarioRepository.deleteById(id);

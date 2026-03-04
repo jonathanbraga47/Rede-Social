@@ -33,6 +33,10 @@ public class InteracaoComentarioController {
     public ResponseEntity<InteracaoComentario> getInteracaoComentario(@PathVariable Long id) {
         return ResponseEntity.ok(interacaoComentarioService.getInteracaoComentario(id));
     }
+    @GetMapping("/usuario/{idPerfil}")
+    public List<InteracaoComentario> getByUsuario(@PathVariable Long idPerfil) {
+        return interacaoComentarioService.getByPerfil(idPerfil);
+    }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteInteracaoComentario(@PathVariable Long id){

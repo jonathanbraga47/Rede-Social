@@ -47,7 +47,9 @@ public class InteracaoCurtidaService {
         return interacaoCurtidaRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Curtida não encontrado"));
     }
-
+    public List<InteracaoCurtida> getByPerfil(Long idPerfil) {
+        return interacaoCurtidaRepository.findByPerfilId(idPerfil);
+    }
     public void deleteInteracaoCurtida(Long id){
         interacaoCurtidaRepository.deleteById(id);
     }
