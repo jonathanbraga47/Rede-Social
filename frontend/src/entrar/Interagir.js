@@ -33,9 +33,18 @@ export default function Interagir() {
         usuarioId: id
       })
     })
-      .then(() => setMensagem("❤️ Publicação curtida com sucesso!"))
-      .catch(() => setMensagem("❌ Erro ao curtir."));
+      .then(res => {
+      if (!res.ok) {
+        throw new Error("Erro no servidor");
+      }
+      return res.text();
+    })
+    .then(() => setMensagem("❤️ Publicação curtida com sucesso!"))
+    .catch(err => {
+    setMensagem(`❌ ${err.message}`);
+    });
   }
+  
 
   function comentar() {
     if (!conteudoComentario.trim()) {
@@ -52,11 +61,17 @@ export default function Interagir() {
         conteudo: conteudoComentario
       })
     })
-      .then(() => {
-        setMensagem("💬 Comentário enviado com sucesso!");
-        setConteudoComentario("");
-      })
-      .catch(() => setMensagem("❌ Erro ao comentar."));
+       .then(res => {
+      if (!res.ok) {
+        throw new Error("Erro no servidor");
+      }
+      return res.text();
+    })
+    .then(() => setMensagem("💬Comentário enviado com sucesso!"))
+    .catch(err => {
+    setMensagem(`❌ ${err.message}`);
+    });
+     
   }
 
   return (
