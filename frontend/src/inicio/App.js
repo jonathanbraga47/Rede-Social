@@ -16,7 +16,7 @@ import Interagir from '../entrar/Interagir';
 import ViewsTable from '../View/ViewTable';
 import ViewHistoricoMensagens from '../View/ViewHistMsg';
 import ViewFeed from '../View/ViewFeed';
-import Relatorios from '../entrar/Relatorios';
+import Relatorios from './Relatorios';
 function App() {
   return (
       <BrowserRouter>
