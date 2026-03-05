@@ -94,3 +94,21 @@ body {
     color: #721c24;
     font-weight: 500;
 }
+.lista-perfis-scroll {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.card-perfil {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+

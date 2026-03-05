@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import "./Interacoes.css";
 
 export default function Interacoes() {
     const { id } = useParams();

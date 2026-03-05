@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./ListarSegue.css";
 import "./Seguir.css";
@@ -8,6 +8,38 @@ export default function SeguirFormulario() {
     const [idSeguido, setIdSeguido] = useState("");
     const [mensagem, setMensagem] = useState("");
     const [erro, setErro] = useState("");
+    const [perfis, setPerfis] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function carregarPerfis() {
+            try {
+                // Busca todos os perfis
+                const resPerfis = await fetch("http://localhost:8080/perfil");
+                const todosPerfis = await resPerfis.json();
+
+                // Busca quem o usuário já segue
+                const resSeguindo = await fetch(`http://localhost:8080/segue/seguindo/${id}`);
+                const seguindo = await resSeguindo.json();
+
+                const idsSeguindo = seguindo.map(s => s.idSeguido);
+
+                // Filtra:
+                const filtrados = todosPerfis.filter(p =>
+                    p.id != id && !idsSeguindo.includes(p.id)
+                );
+
+                setPerfis(filtrados);
+            } catch (err) {
+                console.error(err);
+                setErro("Erro ao carregar perfis.");
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        carregarPerfis();
+    }, [id]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -32,6 +64,9 @@ export default function SeguirFormulario() {
         .then(() => {
             setMensagem("Perfil seguido com sucesso!");
             setIdSeguido("");
+
+            // Remove da lista após seguir
+            setPerfis(perfis.filter(p => p.id != idSeguido));
         })
         .catch(err => {
             console.error(err);
@@ -44,7 +79,6 @@ export default function SeguirFormulario() {
             <h2>Seguir Perfil</h2>
 
             <form onSubmit={handleSubmit}>
-
                 <div>
                     <label>ID do perfil que deseja seguir:</label>
                     <input
@@ -59,7 +93,22 @@ export default function SeguirFormulario() {
             </form>
 
             {mensagem && <p className="mensagem-sucesso">{mensagem}</p>}
-{erro && <p className="mensagem-erro">{erro}</p>}
+            {erro && <p className="mensagem-erro">{erro}</p>}
+
+            <h3>Perfis disponíveis para seguir</h3>
+
+            {loading ? (
+                <p>Carregando...</p>
+            ) : (
+                <div className="lista-perfis-scroll">
+                    {perfis.map(perfil => (
+                        <div key={perfil.id} className="card-perfil">
+                            <p><strong>ID:</strong> {perfil.id}</p>
+                            <p><strong>Nome:</strong> {perfil.nome}</p>
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 }
