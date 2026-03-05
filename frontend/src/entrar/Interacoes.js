@@ -56,42 +56,61 @@ export default function Interacoes() {
 
     if (loading) return <p>Carregando...</p>;
     if (erro) return <p>{erro}</p>;
-
     return (
-        <div>
-            <h2>Minhas Interações</h2>
+    <div className="interacoes-page">
+        <div className="interacoes-container">
+        <h2>Minhas Interações</h2>
 
+        <div className="interacoes-scroll">
+
+            <div className="secao">
             <h3>Comentários</h3>
-            {comentarios.length === 0 ? (
-                <p>Nenhum comentário.</p>
-            ) : (
-                <ul>
-                    {comentarios.map((comentario) => (
-                        <li key={comentario.id}>
-                            {comentario.texto}
-                            <button onClick={() => removerComentario(comentario.id)}>
-                                Remover
-                            </button>
-                        </li>
-                    ))}
-                </ul>
-            )}
 
-            <h3>Curtidas</h3>
-            {curtidas.length === 0 ? (
-                <p>Nenhuma curtida.</p>
+            {comentarios.length === 0 ? (
+                <p className="mensagem-vazia">Nenhum comentário.</p>
             ) : (
-                <ul>
-                    {curtidas.map((curtida) => (
-                        <li key={curtida.id}>
-                            Curtida na publicação {curtida.publicacao?.id}
-                            <button onClick={() => removerCurtida(curtida.id)}>
-                                Remover
-                            </button>
-                        </li>
-                    ))}
+                <ul className="lista">
+                {comentarios.map((comentario) => (
+                    <li key={comentario.id} className="item">
+                    <span>{comentario.texto}</span>
+                    <button
+                        className="btn-remover"
+                        onClick={() => removerComentario(comentario.id)}
+                    >
+                        Remover
+                    </button>
+                    </li>
+                ))}
                 </ul>
             )}
+            </div>
+
+            <div className="secao">
+            <h3>Curtidas</h3>
+
+            {curtidas.length === 0 ? (
+                <p className="mensagem-vazia">Nenhuma curtida.</p>
+            ) : (
+                <ul className="lista">
+                {curtidas.map((curtida) => (
+                    <li key={curtida.id} className="item">
+                    <span>
+                        Curtida na publicação {curtida.publicacao?.id}
+                    </span>
+                    <button
+                        className="btn-remover"
+                        onClick={() => removerCurtida(curtida.id)}
+                    >
+                        Remover
+                    </button>
+                    </li>
+                ))}
+                </ul>
+            )}
+            </div>
+
         </div>
+        </div>
+    </div>
     );
 }
