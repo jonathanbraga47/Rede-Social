@@ -1,4 +1,3 @@
-/* Fundo da página */
 .interagir-page {
   min-height: 100vh;
   display: flex;
@@ -8,78 +7,97 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Card */
-.interagir-card {
+.interagir-container {
   background: white;
-  padding: 40px;
+  padding: 30px;
   border-radius: 16px;
   width: 100%;
-  max-width: 450px;
+  max-width: 800px;
+  height: 85vh;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
-}
-
-.interagir-card:hover {
-  transform: translateY(-5px);
-}
-
-.interagir-card h2 {
-  margin-bottom: 25px;
-  text-align: center;
-}
-
-/* Form */
-.interagir-form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
 }
 
-/* Inputs */
-.interagir-input,
-.interagir-textarea,
-.interagir-select {
-  padding: 12px;
+.interagir-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.interagir-feed {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Scroll bonitinho */
+.interagir-feed::-webkit-scrollbar {
+  width: 8px;
+}
+
+.interagir-feed::-webkit-scrollbar-thumb {
+  background: #7c3aed;
   border-radius: 10px;
-  border: 1px solid #ddd;
+}
+
+.interagir-card {
+  background: #f9fafb;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.feed-image {
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.feed-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
   font-size: 14px;
-  transition: all 0.3s ease;
+  color: #555;
 }
 
-.interagir-input:focus,
-.interagir-textarea:focus,
-.interagir-select:focus {
-  border-color: #7c3aed;
-  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
-  outline: none;
+.acoes {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-/* Textarea */
-.interagir-textarea {
-  min-height: 90px;
-  resize: none;
-}
-
-/* Botão */
-.interagir-button {
-  padding: 12px;
-  border-radius: 10px;
+.btn-curtir,
+.btn-comentar {
+  padding: 8px;
+  border-radius: 8px;
   border: none;
+  cursor: pointer;
+  font-weight: 600;
   background: linear-gradient(135deg, #6366f1, #8b5cf6);
   color: white;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  transition: 0.3s;
 }
 
-.interagir-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3);
+.btn-curtir:hover,
+.btn-comentar:hover {
+  transform: translateY(-2px);
 }
 
-/* Mensagem */
-.interagir-mensagem {
-  margin-top: 20px;
+.textarea-comentario {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  resize: none;
+  min-height: 60px;
+}
+
+.mensagem {
+  margin-top: 15px;
   text-align: center;
   font-weight: 500;
 }
