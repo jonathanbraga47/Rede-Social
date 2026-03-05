@@ -39,7 +39,7 @@ export default function ViewFeed() {
       <div className="feed-grid">
         {feed.map((item, index) => (
           <div key={index} className="feed-card">
-            <h3>{item.nomePerfil}</h3>
+            <h3>{item.nome}</h3>
 
             <p className="legenda">{item.legenda}</p>
 

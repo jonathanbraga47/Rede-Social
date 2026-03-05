@@ -102,15 +102,15 @@ export default function Interagir() {
             </thead>
             <tbody>
               {feed.map((item) => (
-                <tr key={item.idPublicacao}>
-                  <td>{item.idPublicacao}</td>
-                  <td>{item.nomePerfil}</td>
-                  <td>{item.legenda}</td>
-                  <td>{item.totalCurtidas}</td>
-                  <td>{item.totalComentarios}</td>
-                  <td>{item.dataHora}</td>
-                </tr>
-              ))}
+                  <tr key={item.idPublicacao}>
+                    <td><strong>ID:</strong> {item.idPublicacao}</td>
+                    <td><strong>Perfil:</strong> {item.nome}</td>
+                    <td><strong>Legenda:</strong> {item.legenda}</td>
+                    <td><strong>❤️</strong> {item.totalCurtidas}</td>
+                    <td><strong>💬</strong> {item.totalComentarios}</td>
+                    <td><strong>Data:</strong> {new Date(item.dataHora).toLocaleDateString()}</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>

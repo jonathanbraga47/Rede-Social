@@ -73,7 +73,7 @@ export default function Interacoes() {
                 <ul className="lista">
                 {comentarios.map((comentario) => (
                     <li key={comentario.id} className="item">
-                    <span>{comentario.texto}</span>
+                    <span>Comentario na publicacao ID {comentario.publicacao.id}: "{comentario.texto}"</span>
                     <button
                         className="btn-remover"
                         onClick={() => removerComentario(comentario.id)}
@@ -96,7 +96,7 @@ export default function Interacoes() {
                 {curtidas.map((curtida) => (
                     <li key={curtida.id} className="item">
                     <span>
-                        Curtida na publicação {curtida.publicacao?.id}
+                        Curtida na publicação ID: {curtida.publicacao?.id}
                     </span>
                     <button
                         className="btn-remover"

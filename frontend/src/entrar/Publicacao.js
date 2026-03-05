@@ -150,39 +150,51 @@ export default function Publicacoes() {
                                         checked={selecionadas.includes(pub.id)}
                                         onChange={() => toggleSelecionada(pub.id)}
                                     />
+                                    <strong> SELECIONAR</strong>
                                 </td>
 
-                                <td>{pub.id}</td>
+                                <td><strong>ID:</strong> {pub.id}</td>
 
                                 <td>
+                                    <strong>LEGENDA:</strong> 
                                     {editandoId === pub.id ? (
                                         <input
                                             type="text"
                                             value={novaLegenda}
                                             onChange={(e) => setNovaLegenda(e.target.value)}
+                                            className="input-edicao"
                                         />
                                     ) : (
                                         pub.legenda
                                     )}
                                 </td>
 
-                                <td>{pub.dataHora}</td>
-                                <td>{pub.interacoes ? pub.interacoes.length : 0}</td>
+                                <td><strong>DATA:</strong> {new Date(pub.dataHora).toLocaleDateString()}</td>
+                                <td><strong>INTERAÇÕES:</strong> {pub.interacoes ? pub.interacoes.length : 0}</td>
 
                                 <td>
-                                    {pub.arquivos && pub.arquivos.map((arquivo, index) => (
-                                        <div key={index}>{arquivo.urlMidia}</div>
-                                    ))}
+                                    <strong>MÍDIAS:</strong>
+                                    <div className="midia-container">
+                                        {pub.arquivos && pub.arquivos.map((arquivo, index) => (
+                                            <img 
+                                                key={index} 
+                                                src={arquivo.urlMidia} 
+                                                alt="Preview" 
+                                                className="img-publicacao"
+                                                onError={(e) => e.target.style.display = 'none'} // Esconde se a URL for inválida
+                                            />
+                                        ))}
+                                    </div>
                                 </td>
 
-                                <td>
+                                <td className="acoes-card">
                                     {editandoId === pub.id ? (
                                         <>
-                                            <button onClick={() => salvarEdicao(pub.id)}>Salvar</button>
-                                            <button onClick={() => setEditandoId(null)}>Cancelar</button>
+                                            <button onClick={() => salvarEdicao(pub.id)} className="btn-salvar">Salvar</button>
+                                            <button onClick={() => setEditandoId(null)} className="btn-cancelar">Cancelar</button>
                                         </>
                                     ) : (
-                                        <button onClick={() => iniciarEdicao(pub)}>Editar</button>
+                                        <button onClick={() => iniciarEdicao(pub)} className="btn-editar">Editar</button>
                                     )}
                                 </td>
                             </tr>
