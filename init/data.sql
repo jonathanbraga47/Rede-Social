@@ -494,10 +494,10 @@ SELECT
     t.id_conversa,
     t.user_seguido,
     CONCAT('Tudo sim ', p.nome, '!')
-FROM temp_mapeamento t;
+FROM temp_mapeamento t
 JOIN perfil p 
-    ON p.id_perfil = t.user_seguido;
-
+    ON p.id_perfil = t.user_seguidor;
+    
 DROP TEMPORARY TABLE temp_mapeamento;
 
 SET FOREIGN_KEY_CHECKS = 1;
