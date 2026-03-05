@@ -39,7 +39,7 @@ function App() {
           <Route path="/viewFeed/feed" element={<ViewFeed/>} />
           <Route path="/historicoMensagem/historico/:id" element={<ViewHistoricoMensagens />} />
           <Route path="/relatorios" element={<Relatorios />} />  
-          <Route path="/relatorios" element={<Interacoes />} />  
+          <Route path="/interacoes/:id" element={<Interacoes />} />  
           
         </Routes>
       </BrowserRouter>
