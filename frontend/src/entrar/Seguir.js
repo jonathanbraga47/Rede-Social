@@ -15,7 +15,7 @@ export default function SeguirFormulario() {
         async function carregarPerfis() {
             try {
                 // Busca todos os perfis
-                const resPerfis = await fetch("http://localhost:8080/perfil");
+                const resPerfis = await fetch("http://localhost:8080/perfil/getAll");
                 const todosPerfis = await resPerfis.json();
 
                 // Busca quem o usuário já segue
