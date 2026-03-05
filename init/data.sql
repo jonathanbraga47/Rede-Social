@@ -484,16 +484,20 @@ INSERT INTO mensagem (id_conversa, id_perfil, conteudo)
 SELECT
     t.id_conversa,
     t.user_seguidor,
-    CONCAT('Oi ', t.user_seguido, ', tudo certo?')
-FROM temp_mapeamento t;
+    CONCAT('Oi ', p.nome, ', tudo certo?')
+FROM temp_mapeamento t
+JOIN perfil p 
+    ON p.id_perfil = t.user_seguido;
 
 INSERT INTO mensagem (id_conversa, id_perfil, conteudo)
 SELECT
     t.id_conversa,
     t.user_seguido,
-    CONCAT('Tudo sim ', t.user_seguidor, '!')
-FROM temp_mapeamento t;
-
+    CONCAT('Tudo sim ', p.nome, '!')
+FROM temp_mapeamento t
+JOIN perfil p 
+    ON p.id_perfil = t.user_seguidor;
+    
 DROP TEMPORARY TABLE temp_mapeamento;
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -33,6 +33,11 @@ public class InteracaoCurtidaController {
     public ResponseEntity<InteracaoCurtida> getInteracaoCurtida(@PathVariable Long id){
         return ResponseEntity.ok(interacaoCurtidaService.getInteracaoCurtida(id));
     }
+    
+    @GetMapping("/usuario/{idPerfil}")
+    public List<InteracaoCurtida> getByUsuario(@PathVariable Long idPerfil) {
+        return interacaoCurtidaService.getByPerfil(idPerfil);
+    }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteInteracaoCurtida(@PathVariable Long id){

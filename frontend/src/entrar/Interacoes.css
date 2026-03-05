@@ -1,0 +1,93 @@
+/* Fundo da página */
+.interacoes-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #6a5acd, #7b68ee);
+    padding: 40px 20px;
+}
+
+/* Card principal */
+.interacoes-container {
+    background: #f4f4f4;
+    width: 700px;
+    max-width: 95%;
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.interacoes-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    color: #333;
+}
+
+/* Organização das seções lado a lado */
+.interacoes-scroll {
+    display: flex;
+    gap: 30px;
+    justify-content: space-between;
+}
+
+/* Cada seção */
+.secao {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Área de scroll individual */
+.lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Estilização da scrollbar */
+.lista::-webkit-scrollbar {
+    width: 6px;
+}
+
+.lista::-webkit-scrollbar-thumb {
+    background: #6a5acd;
+    border-radius: 10px;
+}
+
+/* Itens */
+.item {
+    background: white;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+
+/* Botão igual ao de Seguindo */
+.btn-remover {
+    background: linear-gradient(135deg, #6a5acd, #7b68ee);
+    border: none;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-remover:hover {
+    opacity: 0.85;
+    transform: scale(1.05);
+}
+
+.mensagem-vazia {
+    text-align: center;
+    color: #777;
+}

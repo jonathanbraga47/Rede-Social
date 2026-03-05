@@ -4,46 +4,49 @@ import "./KejomiTable.css"
 
 function KejomiTable() {
 
-  const [perfis, setPerfis] = useState([]);
+    const [perfis, setPerfis] = useState([]);
 
-   useEffect(() => {
-    fetch("http://localhost:8080/perfil/getAll")
-        .then((res) => res.json())
-        .then((data) => {
-            console.log("DATA:", data);
-            setPerfis(data);
-        })
-        .catch((err) => console.error(err));
+    useEffect(() => {
+        fetch("http://localhost:8080/perfil/getAll")
+            .then((res) => res.json())
+            .then((data) => {
+                console.log("DATA:", data);
+                setPerfis(data);
+            })
+            .catch((err) => console.error(err));
     }, []);
-    
+
     console.log("Perfis:", perfis);
 
     return (
-    <div className="table-card">
+        <div className="table-card">
 
-        <div className="table-header">
-            <h2 className="table-title">Todos os Perfis</h2>
-            <Link to="/perfil/create" className="add-button">
-                + Cadastrar
-            </Link>
-            <h2 className="engajamento"></h2>
-            <Link to="/views" className="add-button">
-                Vizualizar Views
-            </Link>
-        </div>
+            <div className="table-header">
+                <h2 className="table-title">Todos os Perfis</h2>
+                <h2 className="engajamento"></h2>
+                <Link to="/perfil/create" className="add-button">
+                    + Cadastrar
+                </Link>
+                <Link to="/views" className="add-button">
+                    Views
+                </Link>
+                <Link to="/relatorios" className="add-button">
+                    Relatórios
+                </Link>
+            </div>
 
-        <div className="table-container">
-            <table>
-                <thead>
+            <div className="table-container">
+                <table>
+                    <thead>
                     <tr>
                         <th>ID</th>
                         <th>Nome</th>
                         <th>Email</th>
                         <th>Ações</th>
                     </tr>
-                </thead>
+                    </thead>
 
-                <tbody>
+                    <tbody>
                     {perfis.map((perfil) => (
                         <tr key={perfil.id}>
                             <td>{perfil.id}</td>
@@ -62,12 +65,12 @@ function KejomiTable() {
                             </td>
                         </tr>
                     ))}
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
+    );
+}
 
-    </div>
-);
-    }
-
-    export default KejomiTable;
+export default KejomiTable;

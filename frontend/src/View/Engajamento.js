@@ -57,8 +57,8 @@ export default function Engajamento() {
           )}
 
           <div className="feed-info">
-            <span>❤️ {item.interacoes}</span>
-            <span>📅 {new Date(item.dataHora).toLocaleString()}</span>
+            <span> 🎯 {item.totalInteracoes}</span>
+            <span>📅 {new Date(item.dataHora).toLocaleString("pt-BR")}</span>
           </div>
         </div>
       ))}

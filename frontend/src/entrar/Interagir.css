@@ -101,3 +101,48 @@
   text-align: center;
   font-weight: 500;
 }
+
+/* Estilo geral da tabela */
+.tabela-feed {
+  width: 100%;
+  border-collapse: separate; /* Mudamos para separate para permitir border-radius se desejar */
+  border-spacing: 0 8px; /* Cria um pequeno espaçamento entre as linhas */
+  font-size: 14px;
+}
+
+/* Estilo das células */
+.tabela-feed td {
+  padding: 12px 15px;
+  background: #ffffff;
+  border-bottom: 1px solid #f0f0f0;
+  text-align: left; /* Alinhado à esquerda para facilitar a leitura dos rótulos */
+  color: #374151;
+  transition: background 0.2s;
+}
+
+/* Efeito de hover na linha para facilitar o foco */
+.tabela-feed tr:hover td {
+  background: #f8fafc;
+}
+
+/* Estilização específica dos indicadores (o que cada campo significa) */
+.tabela-feed td strong {
+  display: inline-block;
+  color: #7c3aed; /* Cor roxa seguindo seu gradiente */
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-right: 8px;
+  min-width: 80px; /* Garante que os valores fiquem alinhados verticalmente */
+}
+
+/* Ajuste nos ícones (se você usou emojis como ❤️ e 💬) */
+.tabela-feed td strong span {
+  font-size: 1.1rem;
+  margin-right: 4px;
+}
+
+/* Esconde o cabeçalho original se você já está usando indicadores internos */
+.tabela-feed thead {
+  display: none; 
+}
