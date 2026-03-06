@@ -12,10 +12,10 @@ public class Conversa {
     @Column(name = "id_conversa")
     private Long idConversa;
 
-    @OneToMany(mappedBy = "conversa", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "conversa", orphanRemoval = true)
     private List<Participa> participantes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "conversa", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "conversa", orphanRemoval = true)
     private List<Mensagem> mensagens = new ArrayList<>();
 
 

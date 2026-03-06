@@ -278,25 +278,22 @@ CREATE TRIGGER trg_valida_senha_forte
 BEFORE INSERT ON perfil
 FOR EACH ROW
 BEGIN
-    -- Não pode ser nula ou vazia
     IF NEW.senha IS NULL OR TRIM(NEW.senha) = '' THEN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Senha é obrigatória.';
     END IF;
 
-    -- Mínimo 5 caracteres
     IF CHAR_LENGTH(NEW.senha) < 5 THEN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'A senha deve ter pelo menos 5 caracteres.';
     END IF;
 
-    -- Deve conter pelo menos uma letra
     IF NEW.senha NOT REGEXP '[A-Za-z]' THEN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'A senha deve conter pelo menos uma letra.';
     END IF;
 
-    -- Deve conter número OU símbolo
+
     IF NOT (
         NEW.senha REGEXP '[0-9]' OR 
         NEW.senha REGEXP '[!@#$%&*_]'

@@ -23,7 +23,7 @@ public class Publicacao {
     @JoinColumn(name = "id_perfil", nullable = false)
     private Perfil perfil;
 
-    @OneToMany(mappedBy = "publicacao", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "publicacao", fetch = FetchType.LAZY)
     @BatchSize(size = 20)
     @JsonIgnoreProperties("publicacao")
     private List<Interacao> interacoes;
@@ -34,7 +34,7 @@ public class Publicacao {
     @Column(name = "legenda",nullable = false)
     private String legenda;
 
-    @OneToMany(mappedBy = "publicacao", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "publicacao", fetch = FetchType.LAZY)
     @BatchSize(size = 20)
     @JsonIgnoreProperties("publicacao")
     private List<ArquivoMidia> arquivos = new ArrayList<>();
