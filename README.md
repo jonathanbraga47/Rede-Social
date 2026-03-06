@@ -72,7 +72,67 @@ docker compose down -v
 docker compose up --build
 ```
 
-## ° Observação
+## 5. Triggers
+
+O banco de dados utiliza **triggers** para garantir a **integridade dos dados** e aplicar **regras de negócio diretamente no banco**, executando validações automáticas antes de determinadas operações de inserção.
+
+---
+
+### trg_perfil_campos_obrigatorios
+
+Executada **antes da inserção (BEFORE INSERT)** na tabela `perfil`. Essa trigger valida se os campos obrigatórios necessários para a criação de um perfil foram informados.
+
+**Gatilho que aciona a trigger:**
+
+* A trigger é acionada **sempre que um novo perfil é inserido na tabela `perfil`**.
+
+**Regras de negócio aplicadas:**
+
+* Todo perfil deve possuir **email**, **nome** e **senha**.
+* Nenhum desses campos pode ser **NULL**.
+* Nenhum desses campos pode ser uma **string vazia ou composta apenas por espaços**.
+* Caso alguma dessas condições ocorra, o cadastro do perfil é **bloqueado**.
+
+---
+
+### trg_valida_senha_forte
+
+Executada **antes da inserção (BEFORE INSERT)** na tabela `perfil`. Essa trigger garante que a senha cadastrada pelo usuário atenda a **critérios mínimos de segurança**.
+
+**Gatilho que aciona a trigger:**
+
+* A trigger é acionada **sempre que um novo perfil é criado e uma senha é informada**.
+
+**Regras de negócio aplicadas:**
+
+* A senha é um **campo obrigatório** e não pode ser **nula ou vazia**.
+* A senha deve possuir **no mínimo 5 caracteres**.
+* A senha deve conter **pelo menos uma letra**.
+* A senha deve conter **pelo menos um número ou um símbolo** (`!@#$%&*_`).
+* Caso alguma dessas regras não seja atendida, o cadastro do perfil é **interrompido** e uma mensagem de erro é retornada.
+
+---
+
+### trg_curtida_unica
+
+Executada **antes da inserção (BEFORE INSERT)** na tabela `interacao`. Essa trigger verifica se já existe uma curtida associada ao mesmo **perfil** e à mesma **publicação**, impedindo duplicidade de interações.
+
+**Gatilho que aciona a trigger:**
+
+* A trigger é acionada **quando um usuário tenta registrar uma nova curtida em uma publicação**.
+* Caso o usuário tente **curtir a mesma publicação mais de uma vez**, a trigger entra em ação.
+
+**Regras de negócio aplicadas:**
+
+* Um **perfil só pode curtir uma mesma publicação uma única vez**.
+* Antes de registrar uma nova curtida, o sistema verifica se já existe uma interação de curtida para o mesmo **perfil** e **publicação**.
+* Caso já exista uma curtida registrada, a nova tentativa de inserção é **bloqueada**.
+* O sistema retorna uma mensagem informando que o usuário **já curtiu a publicação**.
+
+---
+
+
+## 6. Observação
 
 Para fins apenas de exemplificação, os arquivos mídia(fotos) estão sendo gerados automaticamente pelo sistema. De forma que ao criar uma publicação e optar por inserir um arquivo mídia, é solicitado a inserção de um número(id) escolhido de forma livre pelo usuário, que esteja entre 1 e 1.000, que gera automaticamente uma imagem para aquela publicação.
 
