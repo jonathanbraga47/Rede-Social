@@ -70,11 +70,12 @@ public class PerfilService {
     }
 
     @Transactional
-    public void deletePerfil(Long Id){
-        Perfil perfil = perfilRepository.findById(Id)
-                .orElseThrow(() -> new RuntimeException("Perfil não encontrado"));
-
-        perfilRepository.delete(perfil);
+    public void deletePerfil(Long id) {
+        if (!perfilRepository.existsById(id)) {
+            throw new RuntimeException("Perfil não encontrado");
+        }
+        // Deleta diretamente via SQL nativo
+        perfilRepository.deleteByIdNative(id);
     }
 
     @Transactional(readOnly = true)

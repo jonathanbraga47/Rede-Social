@@ -30,24 +30,24 @@ public class Perfil {
 
 
 
-    @OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "perfil", orphanRemoval = true)
     @JsonIgnoreProperties("perfil")
     private List<Publicacao> publicacoes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "perfil", orphanRemoval = true)
     @JsonIgnoreProperties("perfil")
     private List<Interacao> interacoes;
 
-    @OneToMany(mappedBy = "seguidor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "seguidor", orphanRemoval = true)
     private List<Segue> seguindo = new ArrayList<>();
 
-    @OneToMany(mappedBy = "seguido", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "seguido", orphanRemoval = true)
     private List<Segue> seguidores = new ArrayList<>();
 
-    @OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "perfil", orphanRemoval = true)
     private List<Participa> participa = new ArrayList<>();
 
-    @OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "perfil", orphanRemoval = true)
     private List<Mensagem> mensagensEnviadas = new ArrayList<>();
 
     public Long getId() {
