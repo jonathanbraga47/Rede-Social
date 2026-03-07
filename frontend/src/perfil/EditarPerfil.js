@@ -84,8 +84,10 @@ export default function EditarPerfil() {
                 body: JSON.stringify(formData)
             });
 
+            const texto = await resposta.text();
+
             if (!resposta.ok) {
-                setMsg("Erro ao atualizar (email pode já existir).");
+                setMsg(texto);
                 setMsgColor("red");
             } else {
                 setMsg("Perfil atualizado com sucesso!");

@@ -224,24 +224,35 @@ ORDER BY
         WHEN 'Nao Segue Ninguem' THEN 5
         END;
 
-
 DELIMITER $$
 
 CREATE TRIGGER trg_curtida_unica
-BEFORE INSERT ON interacao
+BEFORE INSERT ON interacao_curtida
 FOR EACH ROW
 BEGIN
+
+    DECLARE v_perfil BIGINT;
+    DECLARE v_publicacao BIGINT;
+
+    SELECT id_perfil, id_publicacao
+    INTO v_perfil, v_publicacao
+    FROM interacao
+    WHERE id_interacao = NEW.id_interacao;
+
     IF EXISTS (
         SELECT 1
         FROM interacao i
-        JOIN interacao_curtida ic 
+        JOIN interacao_curtida ic
             ON i.id_interacao = ic.id_interacao
-        WHERE i.id_perfil = NEW.id_perfil
-        AND i.id_publicacao = NEW.id_publicacao
+        WHERE i.id_perfil = v_perfil
+        AND i.id_publicacao = v_publicacao
     ) THEN
+
         SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Você já curtiu essa publicacão.';
+        SET MESSAGE_TEXT = 'Você já curtiu essa publicação.';
+
     END IF;
+
 END$$
 
 DELIMITER ;
@@ -249,24 +260,50 @@ DELIMITER ;
 
 DELIMITER $$
 
-CREATE TRIGGER trg_perfil_campos_obrigatorios
-BEFORE INSERT ON perfil
-FOR EACH ROW
+CREATE PROCEDURE valida_campos_perfil(
+    p_nome VARCHAR(255),
+    p_email VARCHAR(255),
+    p_senha VARCHAR(255)
+)
 BEGIN
-    IF NEW.email IS NULL OR TRIM(NEW.email) = '' THEN
+
+    -- Email obrigatório
+    IF p_email IS NULL OR TRIM(p_email) = '' THEN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Email é obrigatório.';
     END IF;
 
-    IF NEW.nome IS NULL OR TRIM(NEW.nome) = '' THEN
+    -- Nome obrigatório
+    IF p_nome IS NULL OR TRIM(p_nome) = '' THEN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Nome é obrigatório.';
     END IF;
 
-    IF NEW.senha IS NULL OR TRIM(NEW.senha) = '' THEN
+    -- Senha obrigatória
+    IF p_senha IS NULL OR TRIM(p_senha) = '' THEN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Senha é obrigatória.';
     END IF;
+
+END$$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE TRIGGER trg_valida_perfil_insert
+BEFORE INSERT ON perfil
+FOR EACH ROW
+BEGIN
+
+    CALL valida_campos_perfil(
+        NEW.nome,
+        NEW.email,
+        NEW.senha
+    );
+
+    CALL valida_senha_forte(NEW.senha);
+
 END$$
 
 DELIMITER ;
@@ -274,29 +311,53 @@ DELIMITER ;
 
 DELIMITER $$
 
-CREATE TRIGGER trg_valida_senha_forte
-BEFORE INSERT ON perfil
+CREATE TRIGGER trg_valida_perfil_update
+BEFORE UPDATE ON perfil
 FOR EACH ROW
 BEGIN
-    IF NEW.senha IS NULL OR TRIM(NEW.senha) = '' THEN
+
+    CALL valida_campos_perfil(
+        NEW.nome,
+        NEW.email,
+        NEW.senha
+    );
+
+    IF NEW.senha <> OLD.senha THEN
+        CALL valida_senha_forte(NEW.senha);
+    END IF;
+
+END$$
+
+DELIMITER ;
+
+
+DELIMITER $$
+
+CREATE PROCEDURE valida_senha_forte(p_senha VARCHAR(255))
+BEGIN
+
+    -- Não pode ser nula ou vazia
+    IF p_senha IS NULL OR TRIM(p_senha) = '' THEN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Senha é obrigatória.';
     END IF;
 
-    IF CHAR_LENGTH(NEW.senha) < 5 THEN
+    -- Mínimo 5 caracteres
+    IF CHAR_LENGTH(p_senha) < 5 THEN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'A senha deve ter pelo menos 5 caracteres.';
     END IF;
 
-    IF NEW.senha NOT REGEXP '[A-Za-z]' THEN
+    -- Deve conter pelo menos uma letra
+    IF p_senha NOT REGEXP '[A-Za-z]' THEN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'A senha deve conter pelo menos uma letra.';
     END IF;
 
-
+    -- Deve conter número OU símbolo
     IF NOT (
-        NEW.senha REGEXP '[0-9]' OR 
-        NEW.senha REGEXP '[!@#$%&*_]'
+        p_senha REGEXP '[0-9]' OR
+        p_senha REGEXP '[!@#$%&*_]'
     ) THEN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'A senha deve conter pelo menos um número ou símbolo (!@#$%&*_)';
@@ -305,4 +366,3 @@ BEGIN
 END$$
 
 DELIMITER ;
-

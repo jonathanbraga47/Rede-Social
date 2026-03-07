@@ -1,18 +1,15 @@
 package br.com.redesocial.service;
 
-import br.com.redesocial.dto.InteracaoDTO;
 import br.com.redesocial.dto.PerfilDTO;
-import br.com.redesocial.dto.PublicacaoDTO;
 import br.com.redesocial.model.Perfil;
 import br.com.redesocial.model.Publicacao;
 import br.com.redesocial.repository.PerfilRepository;
 import br.com.redesocial.repository.PublicacaoRepository;
-import org.springframework.transaction.annotation.Transactional; // ✅ Adicione esta
+import org.springframework.transaction.annotation.Transactional; 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import br.com.redesocial.repository.ParticipaRepository;
-import java.util.Optional;
+import org.springframework.dao.DataIntegrityViolationException;
 
 @Service
 public class PerfilService {
@@ -21,12 +18,12 @@ public class PerfilService {
     private PerfilRepository perfilRepository;
 
     @Autowired
-    private ParticipaRepository participaRepository;
-
-    @Autowired
     private PublicacaoRepository publicacaoRepository;
 
+    
+
     public Perfil createPerfil(PerfilDTO perfilDTO){
+
         if(perfilRepository.existsByEmail(perfilDTO.getEmail())){
             throw new RuntimeException("Email já cadastrado");
         }
@@ -36,7 +33,11 @@ public class PerfilService {
         perfil.setNome(perfilDTO.getNome());
         perfil.setSenha(perfilDTO.getSenha());
 
-        return perfilRepository.save(perfil);
+        try {
+            return perfilRepository.save(perfil);
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException(e.getMostSpecificCause().getMessage());
+        }
     }
 
     public List<Perfil> getAllPerfil(){
@@ -48,6 +49,7 @@ public class PerfilService {
                 .orElseThrow(()-> new RuntimeException("Perfil não encontrado"));
     }
 
+
     public Perfil updatePerfil(Long id, PerfilDTO perfilDTO) {
         Perfil perfil = getPerfil(id);
 
@@ -56,8 +58,10 @@ public class PerfilService {
         }
 
         if (perfilDTO.getEmail() != null) {
-            if (!perfil.getEmail().equals(perfilDTO.getEmail()) && perfilRepository.existsByEmail(perfilDTO.getEmail())) {
-                throw new RuntimeException(("Email já cadastrado"));
+            if (!perfil.getEmail().equals(perfilDTO.getEmail()) &&
+                perfilRepository.existsByEmail(perfilDTO.getEmail())) {
+
+                throw new RuntimeException("Email já cadastrado");
             }
             perfil.setEmail(perfilDTO.getEmail());
         }
@@ -66,7 +70,11 @@ public class PerfilService {
             perfil.setSenha(perfilDTO.getSenha());
         }
 
-        return perfilRepository.save(perfil);
+        try {
+            return perfilRepository.save(perfil);
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException(e.getMostSpecificCause().getMessage());
+        }
     }
 
     @Transactional

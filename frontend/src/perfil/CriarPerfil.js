@@ -24,6 +24,11 @@ export default function CriarPerfil() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!formData.nome || !formData.email || !formData.senha) {
+            setMsg("Preencha todos os campos");
+            setMsgColor("red");
+            return;
+        }
 
         try {
             const resposta = await fetch("http://localhost:8080/perfil/create", {
@@ -34,10 +39,10 @@ export default function CriarPerfil() {
                 body: JSON.stringify(formData)
             });
 
-            const resultado = await resposta.json();
+            const resultado = await resposta.text();
 
             if (!resposta.ok) {
-                setMsg("Erro ao salvar");
+                setMsg(resultado);
                 setMsgColor("red");
             } else {
                 setMsg("Perfil criado com sucesso!");
@@ -54,7 +59,7 @@ export default function CriarPerfil() {
             }
 
         } catch (erro) {
-            setMsg("Erro ao conectar com a API");
+            setMsg("Erro ao conectar com o servidor");
             setMsgColor("red");
         }
     };
