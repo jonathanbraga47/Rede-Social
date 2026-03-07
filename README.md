@@ -131,6 +131,21 @@ Regras de negócio aplicadas:
 
 ---
 
+## 7. Melhorias
+
+Segundo as observações retornadas nas correções das entregas, foram implementadas as seguintes melhorias:
+
+### 1. Deixar de seguir
+Agora é possível, ao estar seguindo um usuário, deixar de seguí-lo. Fazendo com que seja removido da lista de seguidores do que era seguido e da lista de seguidos de quem o seguia.
+
+### 2. Remover interação
+Agora é possível, ao realizar uma interação em uma publicação de um determinado usuário, seja ela de curtida ou comentário, remover a interação feita. Fazendo com que seja removido da lista de interações da publicação do usuário a interação antes recebida.
+
+## 3. Exibição de usuários
+Ao entrar na aba de seguir usuários ou de interagir em publicações, agora é possível ver a lista de usuários/publicações cadastradas no sistema de forma que torna-se mais fácil e visual executar essas ações.
+
+## 4. Apagar mensagem
+Agora é possível, ao enviar uma mensagem, apagá-la a removendo da lista de conversas e do histórico de mensagens.
 
 ## 6. Observação
 
