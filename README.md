@@ -72,44 +72,39 @@ docker compose down -v
 docker compose up --build
 ```
 
-## 5. Triggers
+## 5. Triggers e Procedures
 
 O banco de dados utiliza triggers para garantir a integridade dos dados e aplicar regras de negócio diretamente no banco, executando validações automáticas antes de determinadas operações de inserção.
 
 ---
 
-### trg_perfil_campos_obrigatorios
-
-Executada antes da inserção (BEFORE INSERT) na tabela Perfil. Essa trigger valida se os campos obrigatórios necessários para a criação de um perfil foram informados.
-
-Gatilho que aciona a trigger:
-
-* A trigger é acionada sempre que um novo perfil é inserido na tabela Perfil.
+### Procedure valida_campos_perfil
+Procedure responsável por validar se os campos obrigatórios necessários para a criação ou atualização de um perfil foram informados corretamente.
+Parâmetros:
+(p_nome, p_email, p_senha)
 
 Regras de negócio aplicadas:
-
-* Todo perfil deve possuir email, nome e senha.
+* O campo email é obrigatório.
+* O campo nome é obrigatório.
+* O campo senha é obrigatório.
 * Nenhum desses campos pode ser NULL.
-* Nenhum desses campos pode ser uma string vazia ou composta apenas por espaços.
-* Caso alguma dessas condições ocorra, o cadastro do perfil é bloqueado.
+* Nenhum desses campos pode ser string vazia ou composta apenas por espaços.
+
+Caso alguma dessas condições não seja atendida, a procedure interrompe a operação utilizando SIGNAL SQLSTATE '45000', retornando uma mensagem de erro.
 
 ---
 
-### trg_valida_senha_forte
-
-Executada antes da inserção (BEFORE INSERT) na tabela Perfil. Essa trigger garante que a senha cadastrada pelo usuário atenda a critérios mínimos de segurança.
-
-Gatilho que aciona a trigger:
-
-* A trigger é acionada sempre que um novo perfil é criado e uma senha é informada.
+### Procedure valida_senha_forte
+Procedure responsável por garantir que a senha cadastrada atenda aos critérios mínimos de segurança.
+Parâmetro:
+(p_senha)
 
 Regras de negócio aplicadas:
-
-* A senha é um campo obrigatório e não pode ser nula ou vazia.
+* A senha é obrigatória e não pode ser nula ou vazia.
 * A senha deve possuir no mínimo 5 caracteres.
 * A senha deve conter pelo menos uma letra.
-* A senha deve conter pelo menos um número ou um símbolo (`!@#$%&*_`).
-* Caso alguma dessas regras não seja atendida, o cadastro do perfil é interrompido e uma mensagem de erro é retornada.
+* A senha deve conter pelo menos um número ou um símbolo (!@#$%&*_).
+Caso alguma dessas regras não seja atendida, a procedure interrompe a operação e retorna uma mensagem de erro.
 
 ---
 
@@ -120,7 +115,7 @@ Executada antes da inserção (BEFORE INSERT) na tabela Interacao. Essa trigger 
 Gatilho que aciona a trigger:
 
 * A trigger é acionada quando um usuário tenta registrar uma nova curtida em uma publicação.
-* Caso o usuário tente curtir a mesma publicação mais de uma vez, a trigger entra em ação.
+Caso o usuário tente curtir a mesma publicação mais de uma vez, a trigger entra em ação.
 
 Regras de negócio aplicadas:
 
@@ -130,6 +125,29 @@ Regras de negócio aplicadas:
 * O sistema retorna uma mensagem informando que o usuário já curtiu a publicação.
 
 ---
+### trg_valida_perfil_insert
+
+Trigger executada antes da inserção (BEFORE INSERT) na tabela Perfil.
+Gatilho que aciona a trigger:
+Sempre que um novo registro é inserido na tabela Perfil.
+
+Ações executadas:
+* Chama a procedure valida_campos_perfil para verificar se os campos obrigatórios foram informados.
+* Chama a procedure valida_senha_forte para validar a segurança da senha cadastrada.
+Caso alguma validação falhe, o cadastro do perfil é interrompido.
+
+---
+### trg_valida_perfil_update
+
+Trigger executada antes da atualização (BEFORE UPDATE) na tabela Perfil.
+
+Gatilho que aciona a trigger:
+Sempre que um perfil existente é atualizado.
+
+Ações executadas:
+* Chama a procedure valida_campos_perfil para garantir que os campos obrigatórios continuem válidos.
+* Caso a senha tenha sido alterada (NEW.senha <> OLD.senha), a trigger chama a procedure valida_senha_forte para validar a nova senha.
+Caso alguma regra seja violada, a atualização do perfil é bloqueada.
 
 ## 7. Melhorias
 
@@ -145,7 +163,7 @@ Agora é possível, ao realizar uma interação em uma publicação de um determ
 Ao entrar na aba de seguir usuários ou de interagir em publicações, agora é possível ver a lista de usuários/publicações cadastradas no sistema de forma que torna-se mais fácil e visual executar essas ações.
 
 ## 4. Apagar mensagem
-Agora é possível, ao enviar uma mensagem, apagá-la a removendo da lista de conversas e do histórico de mensagens.
+Ao enviar uma mensagem, é preciso *clicar* na mensagem que deseja excluir, assim removendo da lista de conversas e do histórico de mensagens.
 
 ## 6. Observação
 
