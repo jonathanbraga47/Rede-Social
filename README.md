@@ -163,7 +163,7 @@ Agora é possível, ao realizar uma interação em uma publicação de um determ
 Ao entrar na aba de seguir usuários ou de interagir em publicações, agora é possível ver a lista de usuários/publicações cadastradas no sistema de forma que torna-se mais fácil e visual executar essas ações.
 
 ## 4. Apagar mensagem
-Ao enviar uma mensagem, é preciso *clicar* na mensagem que deseja excluir, assim removendo da lista de conversas e do histórico de mensagens.
+Para excluir uma mensagem enviada, é preciso clicar na mensagem que deseja remover. Assim, ela será removida da lista de conversas e do histórico de mensagens.
 
 ## 6. Observação
 
